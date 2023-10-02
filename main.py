@@ -1,16 +1,27 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from PyQt6 import QtWidgets
 
+import eventos
+from venta_principal import *
+import sys, var
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+class Main(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Main, self).__init__()
+        var.ui = Ui_VentanaPrincipal()
+        var.ui.setupUi(self) #encargado de la interfaz
 
+        '''
+        zona de eventos de botones
+        
+        '''
 
-# Press the green button in the gutter to run the script.
+        var.ui.btnSalir.clicked.connect(eventos.Eventos.saludar)
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    app = QtWidgets.QApplication([])
+    window = Main()
+    window.show()
+    sys.exit(app.exec())
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
