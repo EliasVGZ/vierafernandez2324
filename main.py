@@ -16,12 +16,12 @@ class Main(QtWidgets.QMainWindow):
         
         '''
 
-        var.ui.btnSalir.clicked.connect(eventos.Eventos.saludar)
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = Main()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec())
 
 
