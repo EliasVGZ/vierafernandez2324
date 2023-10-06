@@ -1,2 +1,1 @@
-global ui
-global calendar
+global ui, calendar, salir, dlgacercade, dlgacerca, dlgsalir
