@@ -1,1 +1,1 @@
-global ui, calendar, salir, dlgacercade, dlgacerca, dlgsalir
+global ui, calendar, salir, dlgacercade, dlgacerca, dlgsalir, driver

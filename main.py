@@ -2,6 +2,7 @@ from datetime import datetime
 
 from PyQt6 import QtWidgets
 
+import drivers
 import eventos
 from venta_principal import *
 import sys, var
@@ -19,6 +20,8 @@ class Main(QtWidgets.QMainWindow):
         var.salir=Salir()
         var.dlgacercade=DlgAcerca()
 
+
+
         """ZONA DE EVENTOS DEL BOTON"""
 
         var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario)
@@ -27,7 +30,10 @@ class Main(QtWidgets.QMainWindow):
         """ ZONA DE EVENTOS DEL MENU BAR"""
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.salir)
-        var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
+        var.ui.actAcerca_de.triggered.connect(eventos.Eventos.acercade)
+
+        """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
+        var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
 
 
 
