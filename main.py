@@ -35,6 +35,11 @@ class Main(QtWidgets.QMainWindow):
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
 
+        """EVENTOS DEl TOOL BAR"""
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
+        var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
+
+
 
 
 class Calendar(QtWidgets.QDialog):
@@ -45,6 +50,8 @@ class Calendar(QtWidgets.QDialog):
         dia= datetime.now().day
         mes = datetime.now().month
         ano = datetime.now().year
+        var.calendar.ventanaCalendario.setSelectedDate((QtCore.QDate(ano,mes,dia)))
+        var.calendar.ventanaCalendario.clicked.connect(drivers.Drivers.cargarFecha)
 
 
 class Salir(QtWidgets.QDialog):

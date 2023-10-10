@@ -1,5 +1,25 @@
 import var
+
 class Drivers():
+
+    @staticmethod
+    def limpiarPanel(self):
+        try:
+            listawidgets = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtFechaAlta, var.ui.txtDireccion,
+                            var.ui.txtMovil, var.ui.txtSalario, var.ui.txtNombre, var.ui.lblValidarDni]
+            for i in listawidgets:
+                i.setText(None)
+
+        except Exception as error:
+            print("error limpiando panel", error)
+    def cargarFecha(qDate):
+        try:
+            data=('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
+            var.ui.txtFechaAlta.setText(str(data))
+            var.calendar.hide()
+
+        except Exception as error:
+            print("error en cargar fecha", error)
     def validarDni(self=None):
         try:
             dni = var.ui.txtDni.text()
@@ -19,14 +39,18 @@ class Drivers():
                     var.ui.lblValidarDni.setText('V')
 
 
+
                 else:
                     var.ui.lblValidarDni.setStyleSheet('color:red;')
                     var.ui.lblValidarDni.setText('X')
-
+                    var.ui.txtDni.clear()  # Limpia el campo de texto
+                    var.ui.txtDni.setFocus() # Mantiene el foco en el campo de texto
 
             else:
                 var.ui.lblValidarDni.setStyleSheet('color:red;')
                 var.ui.lblValidarDni.setText('X')
+                var.ui.txtDni.clear()  # Limpia el campo de texto
+                var.ui.txtDni.setFocus() # Mantiene el foco en el campo de texto
 
 
         except Exception as error:

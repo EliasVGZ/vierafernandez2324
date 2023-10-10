@@ -13,7 +13,7 @@ class Ui_Calendario(object):
     def setupUi(self, Calendario):
         Calendario.setObjectName("Calendario")
         Calendario.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
-        Calendario.resize(400, 300)
+        Calendario.resize(400, 307)
         Calendario.setModal(True)
         self.gridLayout = QtWidgets.QGridLayout(Calendario)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)

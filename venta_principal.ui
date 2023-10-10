@@ -63,7 +63,7 @@
          <rect>
           <x>80</x>
           <y>10</y>
-          <width>821</width>
+          <width>851</width>
           <height>181</height>
          </rect>
         </property>
@@ -129,7 +129,7 @@
         <widget class="QLabel" name="lblDni">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>210</x>
            <y>10</y>
            <width>23</width>
            <height>20</height>
@@ -148,7 +148,7 @@
         <widget class="QLineEdit" name="txtDni">
          <property name="geometry">
           <rect>
-           <x>270</x>
+           <x>250</x>
            <y>10</y>
            <width>161</width>
            <height>20</height>
@@ -181,6 +181,9 @@
          </property>
         </widget>
         <widget class="QLineEdit" name="txtFechaAlta">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="geometry">
           <rect>
            <x>680</x>
@@ -194,6 +197,12 @@
            <width>80</width>
            <height>20</height>
           </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>false</bool>
          </property>
         </widget>
         <widget class="QPushButton" name="btnCalendario">
@@ -423,7 +432,7 @@
           <rect>
            <x>690</x>
            <y>90</y>
-           <width>111</width>
+           <width>131</width>
            <height>22</height>
           </rect>
          </property>
@@ -431,7 +440,7 @@
         <widget class="QLabel" name="lblProvincia">
          <property name="geometry">
           <rect>
-           <x>440</x>
+           <x>420</x>
            <y>90</y>
            <width>61</width>
            <height>16</height>
@@ -450,9 +459,9 @@
         <widget class="QComboBox" name="cmbProvincia">
          <property name="geometry">
           <rect>
-           <x>500</x>
+           <x>490</x>
            <y>90</y>
-           <width>101</width>
+           <width>111</width>
            <height>22</height>
           </rect>
          </property>
@@ -563,6 +572,28 @@
    <addaction name="menuArchivo"/>
    <addaction name="menuHelp"/>
   </widget>
+  <widget class="QToolBar" name="barSalir">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="actionlimpiarPanel"/>
+   <addaction name="separator"/>
+   <addaction name="actionbarSalir"/>
+   <addaction name="separator"/>
+  </widget>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
@@ -573,7 +604,38 @@
     <string>Acerca de...</string>
    </property>
   </action>
+  <action name="actionbarSalir">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</iconset>
+   </property>
+   <property name="text">
+    <string>barSalir</string>
+   </property>
+  </action>
+  <action name="actionlimpiarPanel">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</iconset>
+   </property>
+   <property name="text">
+    <string>limpiarPanel</string>
+   </property>
+  </action>
  </widget>
+ <tabstops>
+  <tabstop>tabPrincipal</tabstop>
+  <tabstop>txtDni</tabstop>
+  <tabstop>txtFechaAlta</tabstop>
+  <tabstop>btnCalendario</tabstop>
+  <tabstop>txtApellido</tabstop>
+  <tabstop>txtNombre</tabstop>
+  <tabstop>txtDireccion</tabstop>
+  <tabstop>cmbProvincia</tabstop>
+  <tabstop>cmbLocalidad</tabstop>
+  <tabstop>txtMovil</tabstop>
+  <tabstop>txtSalario</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

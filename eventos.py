@@ -50,3 +50,4 @@ class Eventos():
             var.dlgsalir.show()
         except Exception as error:
             print('error abrir ventana acerca de', error)
+
