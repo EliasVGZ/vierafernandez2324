@@ -13,6 +13,9 @@ class Ui_dlgAbout(object):
     def setupUi(self, dlgAbout):
         dlgAbout.setObjectName("dlgAbout")
         dlgAbout.resize(495, 394)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("IMG/travel_car_BMV_1741.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        dlgAbout.setWindowIcon(icon)
         self.frame = QtWidgets.QFrame(parent=dlgAbout)
         self.frame.setGeometry(QtCore.QRect(20, 20, 441, 281))
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -21,7 +24,7 @@ class Ui_dlgAbout(object):
         self.lblImagen = QtWidgets.QLabel(parent=self.frame)
         self.lblImagen.setGeometry(QtCore.QRect(10, 10, 96, 96))
         self.lblImagen.setText("")
-        self.lblImagen.setPixmap(QtGui.QPixmap("../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png"))
+        self.lblImagen.setPixmap(QtGui.QPixmap("IMG/travel_car_BMV_1741.png"))
         self.lblImagen.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lblImagen.setObjectName("lblImagen")
         self.label = QtWidgets.QLabel(parent=self.frame)

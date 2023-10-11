@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Acerca de...</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>IMG/travel_car_BMV_1741.png</normaloff>IMG/travel_car_BMV_1741.png</iconset>
+  </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -41,7 +45,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</pixmap>
+     <pixmap>IMG/travel_car_BMV_1741.png</pixmap>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
