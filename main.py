@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import PyQt6
 from PyQt6 import QtWidgets
 
 import drivers
@@ -44,6 +45,7 @@ class Main(QtWidgets.QMainWindow):
 
         fecha = str(datetime.now())
         var.ui.statusbar.showMessage(fecha)
+
 
 
         """ZONA EVENTOS CERRAR VENTANA"""
