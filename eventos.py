@@ -6,7 +6,7 @@ class Eventos():
 
 
     @staticmethod
-    def salir(self):
+    def salir():
         try:
             var.salir.show()
 
@@ -33,7 +33,8 @@ class Eventos():
     @staticmethod
     def cerraracercade():
         try:
-            var.dlgacerca.hide()
+            var.dlgacercade.hide()
+            #var.dlgacerca.hide()
         except Exception as error:
             print('error abrir ventana acerca de', error)
 
@@ -45,9 +46,18 @@ class Eventos():
             print('error abrir ventana acerca de', error)
 
     @staticmethod
-    def mostrarsalir():
+    def mostrarsalir(self, event):
         try:
             var.dlgsalir.show()
         except Exception as error:
             print('error abrir ventana acerca de', error)
+
+    @staticmethod
+    def aceptar(self):
+        sys.exit()  # Cierra la aplicación
+
+    @staticmethod
+    def cancelar():
+        var.salir.hide()  # Oculta el cuadro de diálogo
+
 

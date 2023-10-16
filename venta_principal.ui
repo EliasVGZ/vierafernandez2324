@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>768</height>
+    <height>769</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,7 +39,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>IMG/travel_car_BMV_1741.png</normaloff>IMG/travel_car_BMV_1741.png</iconset>
+    <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -219,7 +219,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>IMG/descarga_calendario.png</normaloff>IMG/descarga_calendario.png</iconset>
+           <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</iconset>
          </property>
         </widget>
         <widget class="QLabel" name="lblApellido">
@@ -465,26 +465,6 @@
            <height>22</height>
           </rect>
          </property>
-         <item>
-          <property name="text">
-           <string>Pontevedra</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>A Coruña</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Ourense</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Lugo</string>
-          </property>
-         </item>
         </widget>
         <widget class="QLabel" name="lblSalario">
          <property name="geometry">
@@ -567,7 +547,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -627,8 +611,7 @@
   <action name="actionbarSalir">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/IMG/imagen_salir.png</normaloff>
-     <normalon>IMG/imagen_salir.png</normalon>../../.designer/backup/IMG/imagen_salir.png</iconset>
+     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</iconset>
    </property>
    <property name="text">
     <string>barSalir</string>
@@ -637,8 +620,7 @@
   <action name="actionlimpiarPanel">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/IMG/reload.png</normaloff>
-     <normalon>IMG/reload.png</normalon>../../.designer/backup/IMG/reload.png</iconset>
+     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</iconset>
    </property>
    <property name="text">
     <string>limpiarPanel</string>

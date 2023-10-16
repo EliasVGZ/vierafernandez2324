@@ -9,6 +9,7 @@ import sys, var
 from calendario import *
 from ventana_acercade import Ui_dlgAbout
 from ventana_salir import Ui_dlgSalir
+from windowaux import Calendar, Salir, DlgAcerca
 
 
 class Main(QtWidgets.QMainWindow):
@@ -39,44 +40,25 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
 
+        """STATUS BAR"""
+
+        fecha = str(datetime.now())
+        var.ui.statusbar.showMessage(fecha)
+
+
+        """ZONA EVENTOS CERRAR VENTANA"""
 
 
 
-class Calendar(QtWidgets.QDialog):
-    def __init__(self):
-        super(Calendar, self). __init__()
-        var.calendar = Ui_Calendario()
-        var.calendar.setupUi(self)
-        dia= datetime.now().day
-        mes = datetime.now().month
-        ano = datetime.now().year
-        var.calendar.ventanaCalendario.setSelectedDate((QtCore.QDate(ano,mes,dia)))
-        var.calendar.ventanaCalendario.clicked.connect(drivers.Drivers.cargarFecha)
+    def closeEvent(self, event):
+        resultado = QtWidgets.QMessageBox.information(self, "Confirmar salida", "¿Estás seguro de que quieres salir?",
+                                                      QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
+        if resultado == QtWidgets.QMessageBox.StandardButton.Yes:
+            app.quit()
+        if resultado == QtWidgets.QMessageBox.StandardButton.No:
+            event.ignore()
 
-class Salir(QtWidgets.QDialog):
-    def __init__(self):
-        super(Salir, self). __init__()
-        var.salir = Ui_dlgSalir()
-        var.salir.setupUi(self)
-        var.salir.btnAceptar.clicked.connect(self.aceptar)
-        var.salir.btnCancelar.clicked.connect(self.cancelar)
-
-    def aceptar(self):
-        sys.exit()  # Cierra la aplicación
-
-    def cancelar(self):
-        self.hide()  # Oculta el cuadro de diálogo
-
-
-class DlgAcerca(QtWidgets.QDialog):
-    def __init__(self):
-        super(DlgAcerca, self).__init__()
-        var.dlgacerca = Ui_dlgAbout()
-        var.dlgacerca.setupUi(self)
-        var.dlgacerca.btnAceptar.clicked.connect(self.aceptar)
-    def aceptar(self):
-        self.hide()  # Oculta el cuadro de diálogo
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

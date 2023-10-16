@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Acerca de...</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>IMG/travel_car_BMV_1741.png</normaloff>IMG/travel_car_BMV_1741.png</iconset>
-  </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -45,7 +41,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>IMG/travel_car_BMV_1741.png</pixmap>
+     <pixmap>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</pixmap>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -77,7 +73,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;  CAR TEIS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="lblVersion">
     <property name="geometry">
      <rect>
       <x>112</x>
