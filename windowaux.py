@@ -38,5 +38,7 @@ class DlgAcerca(QtWidgets.QDialog):
         var.dlgacerca = Ui_dlgAbout()
         var.dlgacerca.setupUi(self)
         var.dlgacerca.btnAceptar.clicked.connect(eventos.Eventos.cerraracercade)
+        var.dlgacerca.lblVersion.setText("Version: " + var.version)
+
 
 

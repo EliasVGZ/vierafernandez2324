@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import PyQt6
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
 
 import drivers
 import eventos
@@ -11,7 +11,8 @@ from calendario import *
 from ventana_acercade import Ui_dlgAbout
 from ventana_salir import Ui_dlgSalir
 from windowaux import Calendar, Salir, DlgAcerca
-
+import locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
@@ -41,14 +42,16 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
 
-        """STATUS BAR"""
+        """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
+        eventos.Eventos.cargarstatusbar(self)
 
-        fecha = str(datetime.now())
-        var.ui.statusbar.showMessage(fecha)
+        eventos.Eventos.cargaprov(self)
+
+        rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
+        for i in rbtDriver:
+            i.toggled.connect(eventos.Eventos.selEstado)
 
 
-
-        """ZONA EVENTOS CERRAR VENTANA"""
 
 
 
