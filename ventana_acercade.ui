@@ -43,6 +43,9 @@
     <property name="pixmap">
      <pixmap>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</pixmap>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
