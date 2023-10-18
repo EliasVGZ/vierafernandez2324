@@ -24,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>16000</width>
-    <height>16000</height>
+    <width>1024</width>
+    <height>1200</height>
    </size>
   </property>
   <property name="font">
@@ -729,7 +729,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
