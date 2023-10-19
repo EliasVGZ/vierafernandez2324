@@ -13,6 +13,9 @@ class Ui_dlgAbout(object):
     def setupUi(self, dlgAbout):
         dlgAbout.setObjectName("dlgAbout")
         dlgAbout.resize(495, 394)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("IMG/travel_car_BMV_1741.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        dlgAbout.setWindowIcon(icon)
         self.frame = QtWidgets.QFrame(parent=dlgAbout)
         self.frame.setGeometry(QtCore.QRect(20, 20, 441, 281))
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)

@@ -1,3 +1,5 @@
+from PyQt6.QtWidgets import QComboBox
+from PyQt6 import QtWidgets
 import var
 
 class Drivers():
@@ -5,10 +7,19 @@ class Drivers():
     @staticmethod
     def limpiarPanel(self):
         try:
-            listawidgets = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtFechaAlta, var.ui.txtDireccion,
-                            var.ui.txtMovil, var.ui.txtSalario, var.ui.txtNombre, var.ui.lblValidarDni]
+            listawidgets = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtFechaAlta,
+                            var.ui.txtDireccion,
+                            var.ui.txtMovil, var.ui.txtSalario, var.ui.txtNombre, var.ui.lblValidarDni,
+                            var.ui.cmbProvincia, var.ui.cmbLocalidad]
             for i in listawidgets:
-                i.setText(None)
+                if hasattr(i, 'setText'):
+                    i.setText(None)
+                elif isinstance(i, QComboBox): #borrar combobox
+                    i.setCurrentIndex(-1)
+
+            chkLicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chkLicencia:
+                i.setChecked(False)
 
         except Exception as error:
             print("error limpiando panel", error)
@@ -55,4 +66,35 @@ class Drivers():
 
         except Exception as error:
             print("Error en validar dni", error)
+
+    def altaDriver(self):
+        try:
+            driver = [var.ui.txtApellido, var.ui.txtNombre, var.ui.txtMovil]
+            newDriver = []
+            newDriver.append(1)
+            for i in driver:
+                newDriver.append(i.text().title())
+            licencias = []
+
+            chkLicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chkLicencia:
+                if i.isChecked():
+                    licencias.append(i.text())
+
+            newDriver.append(' - '.join(licencias))
+
+            index = 0
+            var.ui.tabDrivers.setRowCount(index+1) #crea una fila
+
+            var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(newDriver[0])))#añadimos el new driver en la tabla
+            var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(newDriver[1])))  # añadimos el new driver en la tabla
+            var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newDriver[2])))  # añadimos el new driver en la tabla
+            var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(newDriver[3])))  # añadimos el new driver en la tabla
+            var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(newDriver[4])))  # añadimos el new driver en la tabla
+
+
+            print(newDriver)
+
+        except Exception as error:
+            print("error alta cliente", error)
 

@@ -27,7 +27,8 @@ class Main(QtWidgets.QMainWindow):
 
         """ZONA DE EVENTOS DEL BOTON"""
 
-        var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario)
+        var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario) #abrir calendario al clickearlo
+        var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
@@ -42,6 +43,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
 
+
+        """EVENTOS DE TABLAS"""
+
+
+
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)
 
@@ -50,9 +56,6 @@ class Main(QtWidgets.QMainWindow):
         rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
         for i in rbtDriver:
             i.toggled.connect(eventos.Eventos.selEstado)
-
-
-
 
 
     def closeEvent(self, event):
