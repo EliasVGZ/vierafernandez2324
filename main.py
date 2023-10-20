@@ -13,6 +13,7 @@ from ventana_salir import Ui_dlgSalir
 from windowaux import Calendar, Salir, DlgAcerca
 import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
@@ -39,6 +40,10 @@ class Main(QtWidgets.QMainWindow):
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
 
+        var.ui.txtNombre.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+        var.ui.txtApellido.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+        var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+
         """EVENTOS DEl TOOL BAR"""
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
@@ -46,11 +51,12 @@ class Main(QtWidgets.QMainWindow):
 
         """EVENTOS DE TABLAS"""
 
+        eventos.Eventos.resizeTabDrivers(self)
+
 
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)
-
         eventos.Eventos.cargaprov(self)
 
         rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]

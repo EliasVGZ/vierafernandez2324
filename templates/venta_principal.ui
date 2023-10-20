@@ -39,7 +39,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</iconset>
+    <normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/travel_car_BMV_1741.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -64,7 +64,7 @@
           <x>10</x>
           <y>10</y>
           <width>981</width>
-          <height>251</height>
+          <height>253</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -219,7 +219,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</iconset>
+           <normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/descarga_calendario.png</iconset>
          </property>
         </widget>
         <widget class="QLabel" name="lblApellido">
@@ -407,6 +407,9 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLabel" name="lblLocalidad">
          <property name="geometry">
@@ -490,7 +493,7 @@
           <rect>
            <x>270</x>
            <y>130</y>
-           <width>71</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -503,24 +506,8 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
-        </widget>
-        <widget class="QLabel" name="lblEuro">
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>130</y>
-           <width>16</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;€&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
          </property>
         </widget>
         <widget class="QLabel" name="lbltipoCarnet">
@@ -627,7 +614,7 @@
         <widget class="QLabel" name="lblEstado">
          <property name="geometry">
           <rect>
-           <x>410</x>
+           <x>460</x>
            <y>130</y>
            <width>51</width>
            <height>16</height>
@@ -652,7 +639,7 @@
         <widget class="QRadioButton" name="rbtTodos">
          <property name="geometry">
           <rect>
-           <x>470</x>
+           <x>530</x>
            <y>130</y>
            <width>80</width>
            <height>17</height>
@@ -677,7 +664,7 @@
         <widget class="QRadioButton" name="rbtAlta">
          <property name="geometry">
           <rect>
-           <x>530</x>
+           <x>600</x>
            <y>130</y>
            <width>51</width>
            <height>17</height>
@@ -693,7 +680,7 @@
         <widget class="QRadioButton" name="rbtBaja">
          <property name="geometry">
           <rect>
-           <x>580</x>
+           <x>670</x>
            <y>130</y>
            <width>51</width>
            <height>17</height>
@@ -772,6 +759,12 @@
           <width>981</width>
           <height>381</height>
          </rect>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
@@ -894,7 +887,7 @@
   <action name="actionbarSalir">
    <property name="icon">
     <iconset>
-     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</iconset>
+     <normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</normaloff>../../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</iconset>
    </property>
    <property name="text">
     <string>barSalir</string>
@@ -903,7 +896,7 @@
   <action name="actionlimpiarPanel">
    <property name="icon">
     <iconset>
-     <normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</normaloff>../../Documents/Desenvolvemento Interfaces/imagenes/reload.png</iconset>
+     <normaloff>../IMG/limpiar.png</normaloff>../IMG/limpiar.png</iconset>
    </property>
    <property name="text">
     <string>limpiarPanel</string>

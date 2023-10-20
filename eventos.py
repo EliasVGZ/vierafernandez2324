@@ -1,8 +1,11 @@
+
 from datetime import datetime
 
 from PyQt6 import QtWidgets, QtCore
 
-import var, sys
+import var, sys,locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Eventos():
 
@@ -100,4 +103,29 @@ class Eventos():
         elif var.ui.rbtBaja.isChecked():
             print("pulsaste baja")
 
+
+    def resizeTabDrivers(self):
+        try:
+            header = var.ui.tabDrivers.horizontalHeader()
+            for i in range(5):
+                if i == 0 or i == 4 or i == 3:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                elif i == 1 or i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+
+        except Exception as error:
+            print("error al dimensionar la tabla", error)
+
+
+
+    def formatCajaTexto(self=None):
+        try:
+
+            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())
+            var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
+            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))
+
+
+        except Exception as error:
+            print("error poner letra capital en caja de texto", error)
 
