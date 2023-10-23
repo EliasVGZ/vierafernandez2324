@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb9fde0d-74d6-4319-915d-e68c0743e3ae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendario.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/calendario.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers.py" beforeDir="false" afterPath="$PROJECT_DIR$/drivers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendario.py" beforeDir="false" afterPath="$PROJECT_DIR$/calendario.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventos.py" beforeDir="false" afterPath="$PROJECT_DIR$/eventos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var.py" beforeDir="false" afterPath="$PROJECT_DIR$/var.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/venta_principal.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/venta_principal.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venta_principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/venta_principal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venta_principal.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/venta_principal.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ventana_acercade.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ventana_acercade.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ventana_salir.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ventana_salir.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +46,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/a22eliassvf/AppData/Local/Programs/Python/Python312/Scripts/pyuic6.exe",
-    "settings.editor.selected.configurable": "preferences.externalTools"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">

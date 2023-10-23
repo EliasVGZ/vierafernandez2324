@@ -2,7 +2,9 @@ from datetime import datetime
 
 import PyQt6
 from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtWidgets import QApplication
 
+import conexion
 import drivers
 import eventos
 from venta_principal import *
@@ -23,6 +25,19 @@ class Main(QtWidgets.QMainWindow):
         var.calendar=Calendar()
         var.salir=Salir()
         var.dlgacercade=DlgAcerca()
+        conexion.Conexion.conexion()
+        conexion.Conexion.cargaprov(self)
+        self.center()
+
+    def center(self):
+        # Obtiene la geometría de la pantalla principal
+        screen_geometry = QApplication.primaryScreen().geometry()
+        qr = self.frameGeometry()
+
+        # Centra la ventana en el centro de la pantalla
+        qr.moveCenter(screen_geometry.center())
+        self.move(qr.topLeft())
+
 
 
 
@@ -57,7 +72,6 @@ class Main(QtWidgets.QMainWindow):
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)
-        eventos.Eventos.cargaprov(self)
 
         rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
         for i in rbtDriver:

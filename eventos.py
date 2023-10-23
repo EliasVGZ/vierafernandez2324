@@ -81,17 +81,7 @@ class Eventos():
         except Exception as error:
             print('Error cargar el statusbar: ', error)
 
-    @staticmethod
-    def cargaprov(self):
-        try:
-            prov = ['A Coruña', 'Lugo', 'Vigo', 'Ferrol', 'Santiago de Compostela', 'Ourense', 'Pontevedra']
-            var.ui.cmbProvincia.clear() # LIMPIA Y VUELVE A RECARGAR
-            var.ui.cmbProvincia.addItem(' ')
-            for i, m in enumerate (prov):
-                var.ui.cmbProvincia.addItem(str(m))
 
-        except Exception as error:
-            print("error al carga provincias", error)
 
     @staticmethod
     def selEstado(self):
