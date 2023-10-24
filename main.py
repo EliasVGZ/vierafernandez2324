@@ -27,16 +27,11 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacercade=DlgAcerca()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
-        self.center()
 
-    def center(self):
-        # Obtiene la geometría de la pantalla principal
-        screen_geometry = QApplication.primaryScreen().geometry()
-        qr = self.frameGeometry()
+        screen = QApplication.primaryScreen().geometry()
+        self.setMaximumSize(screen.width(), screen.height())
 
-        # Centra la ventana en el centro de la pantalla
-        qr.moveCenter(screen_geometry.center())
-        self.move(qr.topLeft())
+
 
 
 
