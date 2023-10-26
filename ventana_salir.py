@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'ventana_salir.ui'
+# Form implementation generated from reading ui file '.\templates\ventana_salir.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.2
 #
@@ -16,7 +16,7 @@ class Ui_dlgSalir(object):
         dlgSalir.setMinimumSize(QtCore.QSize(300, 250))
         dlgSalir.setMaximumSize(QtCore.QSize(300, 250))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("IMG/travel_car_BMV_1741.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap(".\\templates\\IMG/travel_car_BMV_1741.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         dlgSalir.setWindowIcon(icon)
         dlgSalir.setSizeGripEnabled(True)
         dlgSalir.setModal(True)
@@ -34,7 +34,7 @@ class Ui_dlgSalir(object):
         self.label_2 = QtWidgets.QLabel(parent=dlgSalir)
         self.label_2.setGeometry(QtCore.QRect(80, 70, 131, 81))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("IMG/imagen_salir.png"))
+        self.label_2.setPixmap(QtGui.QPixmap(".\\templates\\../IMG/imagen_salir.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
 
