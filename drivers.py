@@ -1,3 +1,6 @@
+import re
+import sys
+
 from PyQt6.QtWidgets import QComboBox
 from PyQt6 import QtWidgets, QtCore
 import var
@@ -34,6 +37,51 @@ class Drivers():
         except Exception as error:
             print("error en cargar fecha", error)
 
+    def validarSalario(self=None):
+        try:
+            salario = var.ui.txtSalario.text()
+            var.ui.txtSalario.setText(salario)
+            patron = r'^\d{9}(\.\d{1,2})$'
+            if not re.match(patron, salario):
+                var.ui.txtMovil.clear()
+                var.ui.txtMovil.setFocus()
+
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Valor de Salario Incorrecto (00000000.00)')
+                msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.exec()
+                var.ui.txtSalario.setText("")
+
+        except Exception as error:
+            print('error poner movil', error)
+
+
+    def validarMovil(self=None):
+        try:
+            var.ui.txtApel.setText(var.ui.txtApel.text().title())
+            var.ui.txtNome.setText(var.ui.txtNome.text().title())
+            movil = var.ui.txtMovil.text()
+            patron = r'^\d{9}$'
+            if not re.match(patron, movil):
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText('Escriba un número de móvil correcto')
+                msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.exec()
+                var.ui.txtMovil.setText("")
+
+
+        except Exception as error:
+            print('error poner movil', error)
+
+
     def validarDni(self=None):
         try:
             dni = var.ui.txtDni.text()
@@ -51,9 +99,6 @@ class Drivers():
                 if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
                     var.ui.lblValidarDni.setStyleSheet('color:green;')
                     var.ui.lblValidarDni.setText('V')
-
-
-
                 else:
                     var.ui.lblValidarDni.setStyleSheet('color:red;')
                     var.ui.lblValidarDni.setText('X')
@@ -103,3 +148,6 @@ class Drivers():
 
         except Exception as error:
             print("error alta cliente", error)
+
+
+

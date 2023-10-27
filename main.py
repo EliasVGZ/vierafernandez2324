@@ -49,6 +49,8 @@ class Main(QtWidgets.QMainWindow):
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
+        var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarMovil) #valida que el movil tiene 9 digitos
+        var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarSalario)
 
         var.ui.txtNombre.editingFinished.connect(eventos.Eventos.formatCajaTexto)
         var.ui.txtApellido.editingFinished.connect(eventos.Eventos.formatCajaTexto)
@@ -74,13 +76,22 @@ class Main(QtWidgets.QMainWindow):
 
 
     def closeEvent(self, event):
-        resultado = QtWidgets.QMessageBox.information(self, "Confirmar salida", "¿Estás seguro de que quieres salir?",
-                                                      QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox = QtWidgets.QMessageBox()
+        mbox.setWindowTitle('Confirmar Salida')
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setText('¿Está seguro de que desea salir?')
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
 
-        if resultado == QtWidgets.QMessageBox.StandardButton.Yes:
-            app.quit()
-        if resultado == QtWidgets.QMessageBox.StandardButton.No:
-            event.ignore()
+        if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+            sys.exit()
+        else:
+            mbox.hide()
+
+
 
 
 if __name__ == '__main__':
