@@ -41,11 +41,8 @@ class Drivers():
         try:
             salario = var.ui.txtSalario.text()
             var.ui.txtSalario.setText(salario)
-            patron = r'^\d{9}(\.\d{1,2})$'
-            if not re.match(patron, salario):
-                var.ui.txtMovil.clear()
-                var.ui.txtMovil.setFocus()
-
+            patronReg = r'^\d{1,8}(\.\d{1,2})?$'
+            if not re.match(patronReg, salario):
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -55,6 +52,7 @@ class Drivers():
                 msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 msg.exec()
                 var.ui.txtSalario.setText("")
+                var.ui.txtSalario.setFocus()
 
         except Exception as error:
             print('error poner movil', error)
@@ -62,20 +60,23 @@ class Drivers():
 
     def validarMovil(self=None):
         try:
-            var.ui.txtApel.setText(var.ui.txtApel.text().title())
-            var.ui.txtNome.setText(var.ui.txtNome.text().title())
+            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())
+            var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
             movil = var.ui.txtMovil.text()
+            var.ui.txtMovil.setText(movil)
             patron = r'^\d{9}$'
             if not re.match(patron, movil):
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                msg.setText('Escriba un número de móvil correcto')
+                msg.setText('Escriba un número de móvil correcto (9 digitos)')
                 msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 msg.exec()
                 var.ui.txtMovil.setText("")
+                var.ui.txtMovil.clear()
+                var.ui.txtMovil.setFocus()
 
 
         except Exception as error:

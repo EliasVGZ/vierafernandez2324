@@ -27,7 +27,8 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>IMG/travel_car_BMV_1741.png</normaloff>IMG/travel_car_BMV_1741.png</iconset>
+    <normaloff>../../.designer/backup/IMG/travel_car_BMV_1741.png</normaloff>
+    <normalon>../IMG/travel_car_BMV_1741.png</normalon>../../.designer/backup/IMG/travel_car_BMV_1741.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
@@ -98,6 +99,17 @@
    <property name="scaledContents">
     <bool>true</bool>
    </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>2</width>
+     <height>2</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout"/>
   </widget>
  </widget>
  <resources/>

@@ -87,9 +87,11 @@ class Main(QtWidgets.QMainWindow):
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
 
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
-            sys.exit()
+            event.accept()
+            #sys.exit()
         else:
-            mbox.hide()
+            event.ignore()
+            #mbox.hide()
 
 
 
