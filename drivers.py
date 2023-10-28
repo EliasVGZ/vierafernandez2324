@@ -40,23 +40,23 @@ class Drivers():
     def validarSalario(self=None):
         try:
             salario = var.ui.txtSalario.text()
-            var.ui.txtSalario.setText(salario)
-            patronReg = r'^\d{1,8}(\.\d{1,2})?$'
-            if not re.match(patronReg, salario):
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle('Aviso')
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Valor de Salario Incorrecto (00000000.00)')
-                msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                msg.exec()
-                var.ui.txtSalario.setText("")
-                var.ui.txtSalario.setFocus()
+            if salario != "":
+                var.ui.txtSalario.setText(salario)
+                patronReg = r'^\d{1,8}(\.\d{1,2})?$'
+                if not re.match(patronReg, salario):
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Valor de Salario Incorrecto (00000000.00)')
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.exec()
+                    var.ui.txtSalario.setText("")
+                    var.ui.txtSalario.setFocus()
 
         except Exception as error:
-            print('error poner movil', error)
-
+            print('error poner salario', error)
 
     def validarMovil(self=None):
         try:

@@ -111,9 +111,9 @@ class Eventos():
     def formatCajaTexto(self=None):
         try:
 
-            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())
+            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())# Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)
             var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
-            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))
+            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))# Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual
 
 
         except Exception as error:
