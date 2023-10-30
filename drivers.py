@@ -3,6 +3,8 @@ import sys
 
 from PyQt6.QtWidgets import QComboBox
 from PyQt6 import QtWidgets, QtCore
+
+import conexion
 import var
 
 
@@ -118,11 +120,19 @@ class Drivers():
 
     def altaDriver(self):
         try:
-            driver = [var.ui.txtApellido, var.ui.txtNombre, var.ui.txtMovil]
+            driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion, var.ui.txtMovil, var.ui.txtSalario]
             newDriver = []
-            newDriver.append(1)
+
             for i in driver:
                 newDriver.append(i.text().title())
+
+            ##AÑADIR PROVINCIAS AL CONDUCTOR
+            prov = var.ui.cmbProvincia.currentText()
+            newDriver.insert(5, prov)
+
+            muni = var.ui.cmbLocalidad.currentText()
+            newDriver.insert(6, muni)
+
             licencias = []
 
             chkLicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
@@ -132,9 +142,11 @@ class Drivers():
 
             newDriver.append(' - '.join(licencias))
 
+            #conexion.Conexion.guardarClick(newDriver)
+
+            """
             index = 0
             var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
-
             var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(newDriver[0])))  # añadimos el new driver en la tabla
             var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(newDriver[1])))  # añadimos el new driver en la tabla
             var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newDriver[2])))  # añadimos el new driver en la tabla
@@ -143,7 +155,7 @@ class Drivers():
 
             var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
             var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)"""
 
             print(newDriver)
 

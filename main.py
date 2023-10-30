@@ -28,8 +28,8 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
 
-        screen = QApplication.primaryScreen().geometry()
-        self.setMaximumSize(screen.width(), screen.height())
+        #screen = QApplication.primaryScreen().geometry()
+        #self.setMaximumSize(screen.width(), screen.height())
 
 
 
@@ -40,6 +40,8 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario) #abrir calendario al clickearlo
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
+
+
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
@@ -64,6 +66,9 @@ class Main(QtWidgets.QMainWindow):
         """EVENTOS DE TABLAS"""
 
         eventos.Eventos.resizeTabDrivers(self)
+
+        """EVENTOS COMBOBOX"""
+        var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
 
 
 
