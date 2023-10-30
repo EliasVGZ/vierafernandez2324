@@ -41,6 +41,7 @@ class Conexion():
             id = 0
             prov = var.ui.cmbProvincia.currentText() #
             query = QtSql.QSqlQuery()
+
             query.prepare('select idprov from provincias where provincia = :prov')
             query.bindValue(':prov', prov)
             if query.exec():
