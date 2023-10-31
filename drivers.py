@@ -142,7 +142,7 @@ class Drivers():
 
             newDriver.append(' - '.join(licencias))
 
-            #conexion.Conexion.guardarClick(newDriver)
+            conexion.Conexion.guardarClick(newDriver)
 
             """
             index = 0
