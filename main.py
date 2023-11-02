@@ -27,6 +27,7 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacercade=DlgAcerca()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
+        conexion.Conexion.mostrarDrivers()
 
         #screen = QApplication.primaryScreen().geometry()
         #self.setMaximumSize(screen.width(), screen.height())
