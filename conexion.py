@@ -124,6 +124,24 @@ class Conexion():
                     row = [query1.value(i) for i in range (query1.record().count())] #funcion lambda
                     registros.append(row)
             drivers.Drivers.cargarTablaDriver(registros)
-            print(registros)
+
+            #print(registros) #printeamos los registros para verificarlos
         except Exception as error:
             print ("error mostrar resultados", error)
+
+    @classmethod
+    def oneDriver(cls, codigo):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select * from drivers where codigo = :codigo")
+            query.bindValue(":codigo", int(codigo))
+            if query.exec():
+                while query.next():
+                    for i in range(12):
+                        registro.append(str(query.value(i)))
+            return registro
+
+
+        except Exception as error:
+            print("error en fichero conexion datos de 1 dirver", error)

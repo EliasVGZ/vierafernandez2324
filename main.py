@@ -43,8 +43,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
 
 
-
-
         """ ZONA DE EVENTOS DEL MENU BAR"""
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.salir)
@@ -64,14 +62,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
 
 
+
         """EVENTOS DE TABLAS"""
 
         eventos.Eventos.resizeTabDrivers(self)
+        var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargaDriver)
+
 
         """EVENTOS COMBOBOX"""
         var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
-
-
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)

@@ -185,3 +185,29 @@ class Drivers():
 
         except Exception as error:
             print("Error mostrar tabla", error)
+
+    def cargaDriver(self):
+        try:
+
+            Drivers.limpiarPanel(self)
+
+            row = var.ui.tabDrivers.selectedItems()
+            fila = [dato.text() for dato in row]
+            registro = conexion.Conexion.oneDriver(fila[0])
+            datos = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion, var.ui.cmbProvincia, var.ui.cmbLocalidad,
+                     var.ui.txtMovil, var.ui.txtSalario]
+            j = 0
+            for i in datos:
+                i.setText(str(registro[j]))
+                j = j+1
+                if j == 5:
+                    i.setCurrentText(registro[j])
+
+
+
+
+            print(registro)
+
+
+        except Exception as error:
+            print("Error al cargar los datos de un cliente ", error)

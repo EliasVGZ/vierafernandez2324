@@ -1165,22 +1165,22 @@ background-color:rgb(100,100,100);
   <tabstop>txtApellido</tabstop>
   <tabstop>txtNombre</tabstop>
   <tabstop>txtDireccion</tabstop>
-  <tabstop>cmbProvincia</tabstop>
-  <tabstop>cmbLocalidad</tabstop>
   <tabstop>txtMovil</tabstop>
   <tabstop>txtSalario</tabstop>
-  <tabstop>panelPrincipal</tabstop>
-  <tabstop>rbtTodos</tabstop>
-  <tabstop>rbtAlta</tabstop>
-  <tabstop>rbtBaja</tabstop>
+  <tabstop>cmbProvincia</tabstop>
+  <tabstop>cmbLocalidad</tabstop>
   <tabstop>chkA</tabstop>
   <tabstop>chkB</tabstop>
   <tabstop>chkC</tabstop>
   <tabstop>chkD</tabstop>
+  <tabstop>rbtTodos</tabstop>
+  <tabstop>rbtAlta</tabstop>
+  <tabstop>rbtBaja</tabstop>
   <tabstop>btnAltaDriver</tabstop>
-  <tabstop>btnModifDriver</tabstop>
   <tabstop>btnBajaDriver</tabstop>
+  <tabstop>btnModifDriver</tabstop>
   <tabstop>tabDrivers</tabstop>
+  <tabstop>panelPrincipal</tabstop>
  </tabstops>
  <resources/>
  <connections/>
