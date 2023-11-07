@@ -1,7 +1,7 @@
 import re
 
+from PyQt6 import QtWidgets, QtCore
 from PyQt6.QtWidgets import QComboBox
-from PyQt6 import QtWidgets, QtCore, QtSql
 
 import conexion
 import var
@@ -12,7 +12,8 @@ class Drivers():
     @staticmethod
     def limpiarPanel(self):
         try:
-            listawidgets = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtFechaAlta,
+            listawidgets = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido,
+                            var.ui.txtFechaAlta,
                             var.ui.txtDireccion,
                             var.ui.txtMovil, var.ui.txtSalario, var.ui.txtNombre, var.ui.lblValidarDni,
                             var.ui.cmbProvincia, var.ui.cmbLocalidad]
@@ -83,7 +84,6 @@ class Drivers():
         except Exception as error:
             print('error poner movil', error)
 
-
     def validarDni(self=None):
         try:
             dni = var.ui.txtDni.text()
@@ -119,7 +119,8 @@ class Drivers():
 
     def altaDriver(self):
         try:
-            driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion, var.ui.txtMovil, var.ui.txtSalario]
+            driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
+                      var.ui.txtMovil, var.ui.txtSalario]
             newDriver = []
 
             for i in driver:
@@ -142,19 +143,6 @@ class Drivers():
 
             conexion.Conexion.guardarClick(newDriver)
 
-            """
-            index = 0
-            var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
-            var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(newDriver[0])))  # añadimos el new driver en la tabla
-            var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(newDriver[1])))  # añadimos el new driver en la tabla
-            var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newDriver[2])))  # añadimos el new driver en la tabla
-            var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(newDriver[3])))  # añadimos el new driver en la tabla
-            var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(newDriver[4])))  # añadimos el new driver en la tabla
-
-            var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
-            var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)"""
-
             print(newDriver)
 
         except Exception as error:
@@ -164,7 +152,6 @@ class Drivers():
         try:
             index = 0
             for registro in registros:
-
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
                 var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(
                     str(registro[0])))  # añadimos el new driver en la tabla
@@ -177,7 +164,8 @@ class Drivers():
                 var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(
                     str(registro[4])))  # añadimos el new driver en la tabla
 
-                var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
+                var.ui.tabDrivers.item(index, 0).setTextAlignment(
+                    QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
@@ -194,20 +182,70 @@ class Drivers():
             row = var.ui.tabDrivers.selectedItems()
             fila = [dato.text() for dato in row]
             registro = conexion.Conexion.oneDriver(fila[0])
-            datos = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion, var.ui.cmbProvincia, var.ui.cmbLocalidad,
+            datos = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre,
+                     var.ui.txtDireccion, var.ui.cmbProvincia, var.ui.cmbLocalidad,
                      var.ui.txtMovil, var.ui.txtSalario]
-            j = 0
-            for i in datos:
-                i.setText(str(registro[j]))
-                j = j+1
-                if j == 5:
-                    i.setCurrentText(registro[j])
+            # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
+            for j, dato in enumerate(datos):
+                # si el índice j es igual a 6 o 7. Si es el caso, significa que dato se refiere a un elemento desplegable (cmbProvincia o cmbLocalidad).
+                if j == 6 or j == 7:
+                    # se utiliza el método setCurrentText para establecer el texto seleccionado en el elemento desplegable, utilizando el valor str(registro[j]).
+                    dato.setCurrentText(str(registro[j]))
+                else:
+                    dato.setText(str(registro[j]))
 
-
-
+            if 'A' in registro[10]:
+                var.ui.chkA.setChecked(True)
+            if 'B' in registro[10]:
+                var.ui.chkB.setChecked(True)
+            if 'C' in registro[10]:
+                var.ui.chkC.setChecked(True)
+            if 'D' in registro[10]:
+                var.ui.chkD.setChecked(True)
 
             print(registro)
 
+        except Exception as error:
+            print("Error al cargar los datos de un cliente ", error)
+
+
+    def buscarDriverLupa(self):
+        try:
+
+            dni = var.ui.txtDni.text()
+            registro = conexion.Conexion.codigoDriver(dni)
+            Drivers.cargarDatos(registro)
+
+        except Exception as error:
+            print("Error al cargar al darle a la lupa ", error)
+
+
+
+    def cargarDatos(registro):
+        try:
+            datos = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre,
+                     var.ui.txtDireccion, var.ui.cmbProvincia, var.ui.cmbLocalidad,
+                     var.ui.txtMovil, var.ui.txtSalario]
+            # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
+            for j, dato in enumerate(datos):
+                # si el índice j es igual a 6 o 7. Si es el caso, significa que dato se refiere a un elemento desplegable (cmbProvincia o cmbLocalidad).
+                if j == 6 or j == 7:
+                    # se utiliza el método setCurrentText para establecer el texto seleccionado en el elemento desplegable, utilizando el valor str(registro[j]).
+                    dato.setCurrentText(str(registro[j]))
+                else:
+                    dato.setText(str(registro[j]))
+
+            if 'A' in registro[10]:
+                var.ui.chkA.setChecked(True)
+            if 'B' in registro[10]:
+                var.ui.chkB.setChecked(True)
+            if 'C' in registro[10]:
+                var.ui.chkC.setChecked(True)
+            if 'D' in registro[10]:
+                var.ui.chkD.setChecked(True)
+
+            print(registro)
 
         except Exception as error:
             print("Error al cargar los datos de un cliente ", error)
+

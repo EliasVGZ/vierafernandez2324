@@ -29,18 +29,11 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaprov(self)
         conexion.Conexion.mostrarDrivers()
 
-        #screen = QApplication.primaryScreen().geometry()
-        #self.setMaximumSize(screen.width(), screen.height())
-
-
-
-
-
-
         """ZONA DE EVENTOS DEL BOTON"""
 
         var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario) #abrir calendario al clickearlo
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
+        #var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""

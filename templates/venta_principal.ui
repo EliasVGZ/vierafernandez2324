@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1107</width>
-    <height>889</height>
+    <width>1076</width>
+    <height>885</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -152,7 +152,7 @@
         <property name="midLineWidth">
          <number>1</number>
         </property>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>14</x>
@@ -351,7 +351,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>40</width>
+                      <width>20</width>
                       <height>30</height>
                      </size>
                     </property>
@@ -370,13 +370,46 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QPushButton" name="btnBuscarDriver">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normalon>../IMG/lupa.png</normalon>
+                     </iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>24</width>
+                      <height>24</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_4">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>5</width>
+                      <width>40</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -500,6 +533,12 @@
                <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
                  <widget class="QLabel" name="lblFechaAlta">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>52</width>
@@ -1093,8 +1132,8 @@ background-color:rgb(100,100,100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1107</width>
-     <height>26</height>
+     <width>1076</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -1172,20 +1211,20 @@ background-color:rgb(100,100,100);
   <tabstop>txtApellido</tabstop>
   <tabstop>txtNombre</tabstop>
   <tabstop>txtDireccion</tabstop>
-  <tabstop>txtMovil</tabstop>
-  <tabstop>txtSalario</tabstop>
   <tabstop>cmbProvincia</tabstop>
   <tabstop>cmbLocalidad</tabstop>
+  <tabstop>txtMovil</tabstop>
+  <tabstop>txtSalario</tabstop>
+  <tabstop>rbtTodos</tabstop>
+  <tabstop>rbtAlta</tabstop>
+  <tabstop>rbtBaja</tabstop>
   <tabstop>chkA</tabstop>
   <tabstop>chkB</tabstop>
   <tabstop>chkC</tabstop>
   <tabstop>chkD</tabstop>
-  <tabstop>rbtTodos</tabstop>
-  <tabstop>rbtAlta</tabstop>
-  <tabstop>rbtBaja</tabstop>
   <tabstop>btnAltaDriver</tabstop>
-  <tabstop>btnBajaDriver</tabstop>
   <tabstop>btnModifDriver</tabstop>
+  <tabstop>btnBajaDriver</tabstop>
   <tabstop>tabDrivers</tabstop>
   <tabstop>panelPrincipal</tabstop>
  </tabstops>

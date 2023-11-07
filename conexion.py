@@ -1,6 +1,7 @@
-from PyQt6 import QtWidgets, QtSql, QtCore, QtGui
+import sqlite3
 
-import conexion
+from PyQt6 import QtWidgets, QtSql, QtGui
+
 import drivers
 import var
 
@@ -62,54 +63,53 @@ class Conexion():
         except Exception as error:
             print("error seleccion municipios ", error)
 
-
-
-
     @staticmethod
     def guardarClick(newDriver):
-       try:
+        try:
 
-           if (newDriver[0].strip() == "" or newDriver[1].strip == "" or newDriver[2].strip == "" or newDriver[3].strip == "" or newDriver[7].strip == ""):
-               mbox = QtWidgets.QMessageBox()
-               mbox.setWindowTitle('Aviso')
-               mbox.setWindowIcon(QtGui.QIcon('./IMG/aviso.jpg'))  # Ruta del archivo del icono
-               mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-               mensaje = ('Faltan datos:\n Dni, Apellido, Nombre, Fecha de alta o Movil no pueden estar vacios')
-               mbox.setText(mensaje)
-               mbox.exec()
-           else:
-               query = QtSql.QSqlQuery()
-               query.prepare('insert into drivers (dnidriver, altadriver, apeldriver, nombredriver, direcciondriver, provdriver, munidriver, movildriver, salario, carnet) VALUES (:dni, :alta, :apel, :nombre, :direccion, :provincia, :municipio, :movil, :salario, :carnet)')
+            if (newDriver[0].strip() == "" or newDriver[1].strip == "" or newDriver[2].strip == "" or newDriver[
+                3].strip == "" or newDriver[7].strip == ""):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./IMG/aviso.jpg'))  # Ruta del archivo del icono
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mensaje = ('Faltan datos:\n Dni, Apellido, Nombre, Fecha de alta o Movil no pueden estar vacios')
+                mbox.setText(mensaje)
+                mbox.exec()
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare(
+                    'insert into drivers (dnidriver, altadriver, apeldriver, nombredriver, direcciondriver, provdriver, munidriver, movildriver, salario, carnet) VALUES (:dni, :alta, :apel, :nombre, :direccion, :provincia, :municipio, :movil, :salario, :carnet)')
 
-               query.bindValue(':dni', str(newDriver[0]))
-               query.bindValue(':alta', str(newDriver[1]))
-               query.bindValue(':apel', str(newDriver[2]))
-               query.bindValue(':nombre', str(newDriver[3]))
-               query.bindValue(':direccion', str(newDriver[4]))
-               query.bindValue(':provincia', str(newDriver[5]))
-               query.bindValue(':municipio', str(newDriver[6]))
-               query.bindValue(':movil', str(newDriver[7]))
-               query.bindValue(':salario', str(newDriver[8]))
-               query.bindValue(':carnet', str(newDriver[9]))
+                query.bindValue(':dni', str(newDriver[0]))
+                query.bindValue(':alta', str(newDriver[1]))
+                query.bindValue(':apel', str(newDriver[2]))
+                query.bindValue(':nombre', str(newDriver[3]))
+                query.bindValue(':direccion', str(newDriver[4]))
+                query.bindValue(':provincia', str(newDriver[5]))
+                query.bindValue(':municipio', str(newDriver[6]))
+                query.bindValue(':movil', str(newDriver[7]))
+                query.bindValue(':salario', str(newDriver[8]))
+                query.bindValue(':carnet', str(newDriver[9]))
 
-           if query.exec():
-               mbox = QtWidgets.QMessageBox()
-               mbox.setWindowTitle('Aviso')
-               mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-               mbox.setText('Empleado dado de alta')
-               mbox.exec()
-           else:
-               mbox = QtWidgets.QMessageBox()
-               mbox.setWindowTitle('Aviso')
-               mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-               mbox.setText(query.lastError().text())
-               mbox.exec()
-           #select de los datos de conductores de la base de datos
-           #drivers.Drivers.cargarTabla(datosdriver)
-           Conexion.mostrarDrivers()
+            if query.exec():
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setText('Empleado dado de alta')
+                mbox.exec()
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mbox.setText(query.lastError().text())
+                mbox.exec()
+            # select de los datos de conductores de la base de datos
+            # drivers.Drivers.cargarTabla(datosdriver)
+            Conexion.mostrarDrivers()
 
-       except Exception as error:
-           print ("error guardando los drivers", error)
+        except Exception as error:
+            print("error guardando los drivers", error)
 
     @classmethod
     def mostrarDrivers(self):
@@ -121,16 +121,16 @@ class Conexion():
                            "carnet, bajadriver from drivers")
             if query1.exec():
                 while query1.next():
-                    row = [query1.value(i) for i in range (query1.record().count())] #funcion lambda
+                    row = [query1.value(i) for i in range(query1.record().count())]  # funcion lambda
                     registros.append(row)
             drivers.Drivers.cargarTablaDriver(registros)
 
-            #print(registros) #printeamos los registros para verificarlos
+            # print(registros) #printeamos los registros para verificarlos
         except Exception as error:
-            print ("error mostrar resultados", error)
+            print("error mostrar resultados", error)
 
-    @classmethod
-    def oneDriver(cls, codigo):
+
+    def oneDriver(codigo):
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -141,7 +141,20 @@ class Conexion():
                     for i in range(12):
                         registro.append(str(query.value(i)))
             return registro
+        except Exception as error:
+            print("error en fichero conexion datos de 1 driver", error)
 
+
+    def codigoDriver(dni):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select codigo from drivers where dnidriver = :dnidriver")
+            query.bindValue(":dnidriver", str(dni))
+            if query.exec():
+                while(query.next):
+                    codigo = query.value(0)
+            registro = Conexion.oneDriver(codigo)
+            print(registro)
 
         except Exception as error:
-            print("error en fichero conexion datos de 1 dirver", error)
+            print("error en busca de codigo de un conductor", error)
