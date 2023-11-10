@@ -1,6 +1,6 @@
 import re
 
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QComboBox
 
 import conexion
@@ -182,44 +182,39 @@ class Drivers():
             row = var.ui.tabDrivers.selectedItems()
             fila = [dato.text() for dato in row]
             registro = conexion.Conexion.oneDriver(fila[0])
-            datos = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre,
-                     var.ui.txtDireccion, var.ui.cmbProvincia, var.ui.cmbLocalidad,
-                     var.ui.txtMovil, var.ui.txtSalario]
-            # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
-            for j, dato in enumerate(datos):
-                # si el índice j es igual a 6 o 7. Si es el caso, significa que dato se refiere a un elemento desplegable (cmbProvincia o cmbLocalidad).
-                if j == 6 or j == 7:
-                    # se utiliza el método setCurrentText para establecer el texto seleccionado en el elemento desplegable, utilizando el valor str(registro[j]).
-                    dato.setCurrentText(str(registro[j]))
-                else:
-                    dato.setText(str(registro[j]))
+            # LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO
+            Drivers.cargarDatos(registro)
 
-            if 'A' in registro[10]:
-                var.ui.chkA.setChecked(True)
-            if 'B' in registro[10]:
-                var.ui.chkB.setChecked(True)
-            if 'C' in registro[10]:
-                var.ui.chkC.setChecked(True)
-            if 'D' in registro[10]:
-                var.ui.chkD.setChecked(True)
-
-            print(registro)
+            print(fila)
 
         except Exception as error:
             print("Error al cargar los datos de un cliente ", error)
 
-
+    ##BOTON BUSCAR CONDUCTOR!!!!!!!!!!!!
     def buscarDriverLupa(self):
         try:
-
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codigoDriver(dni)
             Drivers.cargarDatos(registro)
 
+
+
         except Exception as error:
-            print("Error al cargar al darle a la lupa ", error)
+            print("Error al buscar por DNI: ", error)
 
-
+    #BUSCAR EL CONDUCTOR Y LO MARQUE EN LA TABLA
+    def buscarDriverTabla(codigo):
+        try:
+            tabla = var.ui.tabDrivers
+            for fila in range(tabla.rowCount()):
+                item = tabla.item(fila, 0)
+                valorCelda = item.text()
+                if valorCelda == str(codigo):
+                    tabla.selectRow(fila)
+                    tabla.scrollToItem(item)
+                    print("Fila encontrada:", fila)
+        except Exception as error:
+            print('No se ha podido seleccionar al driver en la tabla', error)
 
     def cargarDatos(registro):
         try:
@@ -248,4 +243,3 @@ class Drivers():
 
         except Exception as error:
             print("Error al cargar los datos de un cliente ", error)
-

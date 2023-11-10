@@ -96,6 +96,7 @@ class Conexion():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./IMG/alta_cliente.png'))
                 mbox.setText('Empleado dado de alta')
                 mbox.exec()
             else:
@@ -129,12 +130,11 @@ class Conexion():
         except Exception as error:
             print("error mostrar resultados", error)
 
-
     def oneDriver(codigo):
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare("select * from drivers where codigo = :codigo")
+            query.prepare("SELECT * FROM drivers WHERE codigo = :codigo")
             query.bindValue(":codigo", int(codigo))
             if query.exec():
                 while query.next():
@@ -142,19 +142,38 @@ class Conexion():
                         registro.append(str(query.value(i)))
             return registro
         except Exception as error:
-            print("error en fichero conexion datos de 1 driver", error)
-
+            print("Error en fichero conexion datos de 1 driver: ", error)
 
     def codigoDriver(dni):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("select codigo from drivers where dnidriver = :dnidriver")
-            query.bindValue(":dnidriver", str(dni))
+            query.prepare("SELECT codigo FROM drivers WHERE dnidriver = :dnidri")
+            query.bindValue(":dnidri", str(dni))
+
             if query.exec():
-                while(query.next):
+                codigo = None
+                while query.next():
                     codigo = query.value(0)
-            registro = Conexion.oneDriver(codigo)
-            print(registro)
+
+                if codigo is not None:
+                    registro = Conexion.oneDriver(codigo)
+                    return registro
+                else:
+                    # Si no se encuentra el conductor, mostrar un aviso
+                    var.ui.lblValidarDni.setStyleSheet('color:red;')
+                    var.ui.lblValidarDni.setText('X')
+                    var.ui.txtDni.clear()  # Limpia el campo de texto
+                    var.ui.txtDni.setFocus()  # Mantiene el foco en el campo de texto
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setWindowIcon(QtGui.QIcon('./IMG/aviso.jpg'))  # Ruta del archivo del icono
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mensaje = ('          DNI no existe          ')
+                    mbox.setText(mensaje)
+                    mbox.exec()
+                    return None
 
         except Exception as error:
-            print("error en busca de codigo de un conductor", error)
+            print("Error en búsqueda de código de un conductor: ", error)
+            return None
+
