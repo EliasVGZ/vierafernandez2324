@@ -154,6 +154,7 @@ class Conexion():
                 codigo = None
                 while query.next():
                     codigo = query.value(0)
+                    drivers.Drivers.buscarDriverTabla(codigo)
 
                 if codigo is not None:
                     registro = Conexion.oneDriver(codigo)
@@ -177,3 +178,37 @@ class Conexion():
             print("Error en búsqueda de código de un conductor: ", error)
             return None
 
+    def modifDriver(modificarNewDriver):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                'update drivers set dnidri = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
+                'provdriver = :provincia, munidriver = :municipio, movildriver = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
+
+            query.bindValue(':codigo', int(modificarNewDriver[0]))
+            query.bindValue(':dni', str(modificarNewDriver[1]))
+            query.bindValue(':alta', str(modificarNewDriver[2]))
+            query.bindValue(':apel', str(modificarNewDriver[3]))
+            query.bindValue(':nombre', str(modificarNewDriver[4]))
+            query.bindValue(':direccion', str(modificarNewDriver[5]))
+            query.bindValue(':provincia', str(modificarNewDriver[6]))
+            query.bindValue(':municipio', str(modificarNewDriver[7]))
+            query.bindValue(':movil', str(modificarNewDriver[8]))
+            query.bindValue(':salario', str(modificarNewDriver[9]))
+            query.bindValue(':carnet', str(modificarNewDriver[10]))
+            if query.exec():
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setText('Datos conductor modificado')
+                mbox.exec()
+                Conexion.mostrarDrivers()
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mbox.setText(query.lastError().text())
+                mbox.exec()
+
+        except Exception as error:
+            print("Error al modificar driver en conexion", error)

@@ -164,8 +164,7 @@ class Drivers():
                 var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(
                     str(registro[4])))  # añadimos el new driver en la tabla
 
-                var.ui.tabDrivers.item(index, 0).setTextAlignment(
-                    QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
+                var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
@@ -196,20 +195,39 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codigoDriver(dni)
             Drivers.cargarDatos(registro)
-
-
-
+            registros = conexion.Conexion.mostrarDrivers()
+            Drivers.cargarTablaDriver(registros)
+            codigo = var.ui.lblCodbd.text()
+            for fila in range(var.ui.tabDrivers.rowCount()):
+                if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
+                    var.ui.tabDrivers.scrollToItem(var.ui.tabDrivers.item(fila, 0))
+                    var.ui.tabDrivers.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                    var.ui.tabDrivers.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(registro[3])))
+                    var.ui.tabDrivers.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(registro[4])))
+                    var.ui.tabDrivers.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(registro[8])))
+                    var.ui.tabDrivers.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(registro[10])))
+                    var.ui.tabDrivers.setItem(fila, 5, QtWidgets.QTableWidgetItem(str(registro[11])))
+                    var.ui.tabDrivers.item(fila, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 0).setBackground(QtGui.QColor(255, 241, 160))
+                    var.ui.tabDrivers.item(fila, 1).setBackground(QtGui.QColor(255, 241, 160))
+                    var.ui.tabDrivers.item(fila, 2).setBackground(QtGui.QColor(255, 241, 160))
+                    var.ui.tabDrivers.item(fila, 3).setBackground(QtGui.QColor(255, 241, 160))
+                    var.ui.tabDrivers.item(fila, 4).setBackground(QtGui.QColor(255, 241, 160))
+                    var.ui.tabDrivers.item(fila, 5).setBackground(QtGui.QColor(255, 241, 160))
+                    break
         except Exception as error:
-            print("Error al buscar por DNI: ", error)
+            print("ERROR AL SELECCIONAR EL CONDUCTOR", error)
 
-    #BUSCAR EL CONDUCTOR Y LO MARQUE EN LA TABLA
+    # BUSCAR EL CONDUCTOR Y LO MARQUE EN LA TABLA
     def buscarDriverTabla(codigo):
         try:
             tabla = var.ui.tabDrivers
             for fila in range(tabla.rowCount()):
                 item = tabla.item(fila, 0)
                 valorCelda = item.text()
-                if valorCelda == str(codigo):
+                if valorCelda == int(codigo):
                     tabla.selectRow(fila)
                     tabla.scrollToItem(item)
                     print("Fila encontrada:", fila)
@@ -243,3 +261,32 @@ class Drivers():
 
         except Exception as error:
             print("Error al cargar los datos de un cliente ", error)
+
+    def modificarDriver(self):
+        try:
+            driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
+                      var.ui.txtMovil, var.ui.txtSalario]
+            modificarNewDriver = []
+
+            for i in driver:
+                modificarNewDriver.append(i.text().title())
+
+            ##AÑADIR PROVINCIAS AL CONDUCTOR
+            prov = var.ui.cmbProvincia.currentText()
+            modificarNewDriver.insert(6, prov)
+
+            muni = var.ui.cmbLocalidad.currentText()
+            modificarNewDriver.insert(7, muni)
+
+            licencias = []
+            chkLicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chkLicencia:
+                if i.isChecked():
+                    licencias.append(i.text())
+
+            modificarNewDriver.append(' - '.join(licencias))
+            conexion.Conexion.modifDriver(modificarNewDriver)
+
+
+        except Exception as error:
+            print("Error al modificar el driverrrrrrrrrrrrrrrrrr", error)

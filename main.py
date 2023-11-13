@@ -34,6 +34,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendario.clicked.connect(eventos.Eventos.abrirCalendario) #abrir calendario al clickearlo
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
         var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
+        var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modificarDriver)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
