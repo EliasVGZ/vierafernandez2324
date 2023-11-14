@@ -215,46 +215,45 @@ class Conexion():
 
 
     def borraDriv(dni):
+        global valor
         try:
-            fecha = datetime.today()
-            fecha = fecha.strftime("%d.%m.%Y")
-            query = QtSql.QSqlQuery()
-            query.prepare('update drivers set bajadriver = :fechabaja where '
-                          'dnidriver = :dni')
-            query.bindValue(':fechabaja', str(fecha))
-            query.bindValue(':dni', str(dni))
-            if query.exec():
-                mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setText('Conductor dado de baja')
-                mbox.exec()
-                Conexion.mostrarDrivers()
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select bajadriver from drivers where  '
+                           'dnidriver = :dni')
+            query1.bindValue(':dni', str(dni))
+
+            if query1.exec():
+                while query1.next():
+                    valor = query1.value(0)
+                    print(valor)
+
+            if valor == '':
+                fecha = datetime.today()
+                fecha = fecha.strftime("%d/%m/%Y")
+
+                query = QtSql.QSqlQuery()
+                query.prepare('update drivers set bajadriver = :fechabaja where '
+                              'dnidriver = :dni')
+                query.bindValue(':fechabaja', str(fecha))
+                query.bindValue(':dni', str(dni))
+
+                if query.exec():
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setText('Conductor dado de baja')
+                    mbox.exec()
+                else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mbox.setText('Error al dar de baja al conductor: ' + query.lastError().text())
+                    mbox.exec()
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                mbox.setText(query.lastError().text()+ 'Error baja conductor')
+                mbox.setText('No existe conductor o conductor ya está dado de baja')
                 mbox.exec()
-
-
-
-
         except Exception as error:
             print("Error al dar de baja al driver", error)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

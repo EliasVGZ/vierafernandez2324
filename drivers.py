@@ -163,10 +163,13 @@ class Drivers():
                     str(registro[3])))  # añadimos el new driver en la tabla
                 var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(
                     str(registro[4])))  # añadimos el new driver en la tabla
+                var.ui.tabDrivers.setItem(index, 5, QtWidgets.QTableWidgetItem(
+                    str(registro[5])))  # añadimos el new driver en la tabla
 
                 var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
 
@@ -209,6 +212,7 @@ class Drivers():
                     var.ui.tabDrivers.item(fila, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                     var.ui.tabDrivers.item(fila, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                     var.ui.tabDrivers.item(fila, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                     var.ui.tabDrivers.item(fila, 0).setBackground(QtGui.QColor(255, 241, 160))
                     var.ui.tabDrivers.item(fila, 1).setBackground(QtGui.QColor(255, 241, 160))
                     var.ui.tabDrivers.item(fila, 2).setBackground(QtGui.QColor(255, 241, 160))
@@ -293,8 +297,8 @@ class Drivers():
     def borrarDriver(self):
         try:
             dni = var.ui.txtDni.text()
-            conexion.Conexion.borraDriv(dni) # FUNCION EN conexion y le paso el dni
-            Drivers.cargarTablaDriver(self)
+            conexion.Conexion.borraDriv(dni) # Función EN conexion y le paso el dni
+            conexion.Conexion.mostrarDrivers()
 
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
