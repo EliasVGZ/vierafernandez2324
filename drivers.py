@@ -175,7 +175,6 @@ class Drivers():
 
     def cargaDriver(self):
         try:
-
             Drivers.limpiarPanel(self)
 
             row = var.ui.tabDrivers.selectedItems()
@@ -264,7 +263,7 @@ class Drivers():
 
     def modificarDriver(self):
         try:
-            driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
+            driver = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
                       var.ui.txtMovil, var.ui.txtSalario]
             modificarNewDriver = []
 
@@ -290,3 +289,17 @@ class Drivers():
 
         except Exception as error:
             print("Error al modificar el driverrrrrrrrrrrrrrrrrr", error)
+
+    def borrarDriver(self):
+        try:
+            dni = var.ui.txtDni.text()
+            conexion.Conexion.borraDriv(dni) # FUNCION EN conexion y le paso el dni
+            Drivers.cargarTablaDriver(self)
+
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mensaje = ('          Conductor no existe o no se puede dar de baja          ')
+            mbox.setText(mensaje)
+            mbox.exec()

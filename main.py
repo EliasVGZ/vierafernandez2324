@@ -35,6 +35,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altaDriver) #alta driver al darle click
         var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modificarDriver)
+        var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borrarDriver)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""

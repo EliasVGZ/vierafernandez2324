@@ -1,7 +1,7 @@
 import sqlite3
 
 from PyQt6 import QtWidgets, QtSql, QtGui
-
+from datetime import date, datetime
 import drivers
 import var
 
@@ -182,7 +182,7 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                'update drivers set dnidri = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
+                'update drivers set dnidriver = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
                 'provdriver = :provincia, munidriver = :municipio, movildriver = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
 
             query.bindValue(':codigo', int(modificarNewDriver[0]))
@@ -212,3 +212,49 @@ class Conexion():
 
         except Exception as error:
             print("Error al modificar driver en conexion", error)
+
+
+    def borraDriv(dni):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime("%d.%m.%Y")
+            query = QtSql.QSqlQuery()
+            query.prepare('update drivers set bajadriver = :fechabaja where '
+                          'dnidriver = :dni')
+            query.bindValue(':fechabaja', str(fecha))
+            query.bindValue(':dni', str(dni))
+            if query.exec():
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setText('Conductor dado de baja')
+                mbox.exec()
+                Conexion.mostrarDrivers()
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mbox.setText(query.lastError().text()+ 'Error baja conductor')
+                mbox.exec()
+
+
+
+
+        except Exception as error:
+            print("Error al dar de baja al driver", error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
