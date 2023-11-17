@@ -3,6 +3,7 @@ from datetime import datetime
 
 from PyQt6 import QtWidgets, QtCore
 
+import drivers
 import var, sys,locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
@@ -83,15 +84,8 @@ class Eventos():
 
 
 
-    @staticmethod
-    def selEstado(self):
 
-        if var.ui.rbtTodos.isChecked(): ##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA
-            print("pulsaste todos")
-        elif var.ui.rbtAlta.isChecked():
-            print("pulsaste Alta")
-        elif var.ui.rbtBaja.isChecked():
-            print("pulsaste baja")
+
 
 
     def resizeTabDrivers(self):

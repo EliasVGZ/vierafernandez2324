@@ -166,7 +166,8 @@ class Drivers():
                 var.ui.tabDrivers.setItem(index, 5, QtWidgets.QTableWidgetItem(
                     str(registro[5])))  # añadimos el new driver en la tabla
 
-                var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
+                var.ui.tabDrivers.item(index, 0).setTextAlignment(
+                    QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -267,7 +268,8 @@ class Drivers():
 
     def modificarDriver(self):
         try:
-            driver = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
+            driver = [var.ui.lblCodbd, var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre,
+                      var.ui.txtDireccion,
                       var.ui.txtMovil, var.ui.txtSalario]
             modificarNewDriver = []
 
@@ -297,7 +299,7 @@ class Drivers():
     def borrarDriver(self):
         try:
             dni = var.ui.txtDni.text()
-            conexion.Conexion.borraDriv(dni) # Función EN conexion y le paso el dni
+            conexion.Conexion.borraDriv(dni)  # Función EN conexion y le paso el dni
             conexion.Conexion.mostrarDrivers()
 
         except Exception as error:
@@ -307,3 +309,17 @@ class Drivers():
             mensaje = ('          Conductor no existe o no se puede dar de baja          ')
             mbox.setText(mensaje)
             mbox.exec()
+
+    def selEstado(self):
+
+        if var.ui.rbtTodos.isChecked():  ##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA
+            estado = 0
+            conexion.Conexion.selectDrivers(estado)
+        elif var.ui.rbtAlta.isChecked():
+            estado = 1
+            conexion.Conexion.selectDrivers(estado)
+        elif var.ui.rbtBaja.isChecked():
+            estado = 2
+            conexion.Conexion.selectDrivers(estado)
+
+

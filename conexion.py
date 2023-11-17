@@ -253,7 +253,42 @@ class Conexion():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                mbox.setText('No existe conductor o conductor ya está dado de baja')
+                mbox.setText('Conductor ya está dado de baja')
                 mbox.exec()
         except Exception as error:
             print("Error al dar de baja al driver", error)
+
+    def selectDrivers(estado):
+        try:
+            registros=[]
+            if estado == 0:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
+                               "carnet, bajadriver from drivers")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                drivers.Drivers.cargarTablaDriver(registros)
+            elif estado == 1:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
+                              "carnet, bajadriver from drivers where bajadriver is null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                drivers.Drivers.cargarTablaDriver(registros)
+            elif estado == 2:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
+                              "carnet, bajadriver from drivers where bajadriver is not null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+                drivers.Drivers.cargarTablaDriver(registros)
+        except Exception as error:
+            print("Error al seleccionar los drivers", error)
+
+

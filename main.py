@@ -36,6 +36,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modificarDriver)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borrarDriver)
+        #var.ui.rbtBaja.clicked.connect(drivers.Drivers.mostrarDriversBaja)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
@@ -66,13 +67,15 @@ class Main(QtWidgets.QMainWindow):
 
         """EVENTOS COMBOBOX"""
         var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
+        var.ui.buttonGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)
 
+        """
         rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
         for i in rbtDriver:
-            i.toggled.connect(eventos.Eventos.selEstado)
+            i.toggled.connect(eventos.Eventos.selEstado)"""
 
 
     def closeEvent(self, event):
