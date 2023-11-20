@@ -40,5 +40,9 @@ class DlgAcerca(QtWidgets.QDialog):
         var.dlgacerca.btnAceptar.clicked.connect(eventos.Eventos.cerraracercade)
         var.dlgacerca.lblVersion.setText("Version: " + var.version)
 
+class FileDialogAbrir(QtWidgets.QFileDialog):
+    def __init__(self):
+        super(FileDialogAbrir, self).__init__()
+
 
 

@@ -1,10 +1,8 @@
-
+import os.path
+import shutil
 from datetime import datetime
-
 from PyQt6 import QtWidgets, QtCore
-
-import drivers
-import var, sys,locale
+import var, sys,locale, zipfile, shutil
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
@@ -112,4 +110,28 @@ class Eventos():
 
         except Exception as error:
             print("error poner letra capital en caja de texto", error)
+
+    @classmethod
+    def crearBackUp(self):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')#formato año, mes, dia, hora, minuto, segundos
+            copia = str(fecha + '_backup.zip') #nombre del fichero
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar Copia Seguridad', copia, '.zip')
+            if var.dlgabrir.accept and filename != '':
+                fichzip = zipfile.ZipFile(copia, 'w')
+                fichzip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
+                fichzip.close()
+                shutil.move(str(copia), str(directorio))
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setText('Copia de Seguridad creada ')
+                mbox.exec()
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('Error en Copia de Seguridad: ' )
+            mbox.exec()
 

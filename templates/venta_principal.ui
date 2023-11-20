@@ -771,7 +771,7 @@
                      <string>Todos</string>
                     </property>
                     <property name="checked">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                     <attribute name="buttonGroup">
                      <string notr="true">buttonGroup</string>
@@ -782,6 +782,9 @@
                    <widget class="QRadioButton" name="rbtAlta">
                     <property name="text">
                      <string>Alta</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
                     </property>
                     <attribute name="buttonGroup">
                      <string notr="true">buttonGroup</string>
@@ -1148,7 +1151,15 @@ background-color:rgb(100,100,100);
     </property>
     <addaction name="actAcerca_de"/>
    </widget>
+   <widget class="QMenu" name="menuCrear_Copia_Seguridad">
+    <property name="title">
+     <string>Herramienta</string>
+    </property>
+    <addaction name="actionCrear_Copia_Seguridad"/>
+    <addaction name="actionRestaurar_Copia_Seguridad_2"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuCrear_Copia_Seguridad"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="barSalir">
@@ -1167,6 +1178,9 @@ background-color:rgb(100,100,100);
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="separator"/>
+   <addaction name="actioncrearCopia"/>
+   <addaction name="actionrestaurarCopia"/>
    <addaction name="separator"/>
    <addaction name="actionlimpiarPanel"/>
    <addaction name="separator"/>
@@ -1190,7 +1204,7 @@ background-color:rgb(100,100,100);
      <normalon>../IMG/imagen_salir.png</normalon>../../../../Documents/Desenvolvemento Interfaces/imagenes/imagen_salir.png</iconset>
    </property>
    <property name="text">
-    <string>barSalir</string>
+    <string>Salir</string>
    </property>
   </action>
   <action name="actionlimpiarPanel">
@@ -1200,7 +1214,49 @@ background-color:rgb(100,100,100);
      <normalon>../IMG/limpiar.png</normalon>../../../../.designer/IMG/limpiar.png</iconset>
    </property>
    <property name="text">
-    <string>limpiarPanel</string>
+    <string>Limpiar Panel</string>
+   </property>
+  </action>
+  <action name="actionCrear_Copia_Seguridad">
+   <property name="text">
+    <string>Copia Seguridad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="actionRestaurar_Copia_Seguridad_2">
+   <property name="text">
+    <string>Restaurar Copia Seguridad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+R</string>
+   </property>
+  </action>
+  <action name="actioncrearCopia">
+   <property name="icon">
+    <iconset>
+     <normalon>../IMG/crear_copia.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Crear Copia Seguridad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="actionrestaurarCopia">
+   <property name="icon">
+    <iconset>
+     <normalon>../IMG/restaurar_copia.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Restaurar Copia Seguridad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+R</string>
    </property>
   </action>
  </widget>

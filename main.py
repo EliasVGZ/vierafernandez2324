@@ -12,7 +12,7 @@ import sys, var
 from calendario import *
 from ventana_acercade import Ui_dlgAbout
 from ventana_salir import Ui_dlgSalir
-from windowaux import Calendar, Salir, DlgAcerca
+from windowaux import Calendar, Salir, DlgAcerca, FileDialogAbrir
 import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
@@ -25,9 +25,12 @@ class Main(QtWidgets.QMainWindow):
         var.calendar=Calendar()
         var.salir=Salir()
         var.dlgacercade=DlgAcerca()
+        var.dlgabrir = FileDialogAbrir()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
         conexion.Conexion.mostrarDrivers()
+        estado = 1
+        conexion.Conexion.selectDrivers(estado)
 
         """ZONA DE EVENTOS DEL BOTON"""
 
@@ -36,13 +39,13 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modificarDriver)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borrarDriver)
-        #var.ui.rbtBaja.clicked.connect(drivers.Drivers.mostrarDriversBaja)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actAcerca_de.triggered.connect(eventos.Eventos.acercade)
+        var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearBackUp)
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
@@ -56,6 +59,7 @@ class Main(QtWidgets.QMainWindow):
         """EVENTOS DEl TOOL BAR"""
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
         var.ui.actionlimpiarPanel.triggered.connect(drivers.Drivers.limpiarPanel)
+        var.ui.actioncrearCopia.triggered.connect(eventos.Eventos.crearBackUp)
 
 
 
