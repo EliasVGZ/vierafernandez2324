@@ -2,12 +2,13 @@ import os.path
 import shutil
 from datetime import datetime
 from PyQt6 import QtWidgets, QtCore
-import var, sys,locale, zipfile, shutil
+import var, sys, locale, zipfile, shutil, conexion
+
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
-class Eventos():
 
+class Eventos():
 
     @staticmethod
     def salir():
@@ -17,7 +18,6 @@ class Eventos():
         except Exception as error:
             print(error, "en modulos eventos")
 
-
     @staticmethod
     def abrirCalendario(self):
         try:
@@ -25,14 +25,12 @@ class Eventos():
         except Exception as error:
             print("error en abrir calendario", error)
 
-
     @staticmethod
     def acercade():
         try:
             var.dlgacercade.show()
         except Exception as error:
-            print ("error abrir ventana acerca de", error)
-
+            print("error abrir ventana acerca de", error)
 
     @staticmethod
     def cerraracercade():
@@ -80,12 +78,6 @@ class Eventos():
         except Exception as error:
             print('Error cargar el statusbar: ', error)
 
-
-
-
-
-
-
     def resizeTabDrivers(self):
         try:
             header = var.ui.tabDrivers.horizontalHeader()
@@ -98,27 +90,27 @@ class Eventos():
         except Exception as error:
             print("error al dimensionar la tabla", error)
 
-
-
     def formatCajaTexto(self=None):
         try:
 
-            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())# Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)
+            var.ui.txtApellido.setText(
+                var.ui.txtApellido.text().title())  # Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)
             var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
-            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))# Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual
+            var.ui.txtSalario.setText(str(locale.currency(float(
+                var.ui.txtSalario.text()))))  # Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual
 
 
         except Exception as error:
             print("error poner letra capital en caja de texto", error)
 
-    @classmethod
     def crearBackUp(self):
         try:
             fecha = datetime.today()
-            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')#formato año, mes, dia, hora, minuto, segundos
-            copia = str(fecha + '_backup.zip') #nombre del fichero
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')  # formato año, mes, dia, hora, minuto, segundos
+            copia = str(fecha + '_backup.zip')  # nombre del fichero
             directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar Copia Seguridad', copia, '.zip')
-            if var.dlgabrir.accept and filename != '':
+
+            if var.dlgabrir.accept and filename:
                 fichzip = zipfile.ZipFile(copia, 'w')
                 fichzip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
                 fichzip.close()
@@ -132,6 +124,30 @@ class Eventos():
             mbox = QtWidgets.QMessageBox()
             mbox.setWindowTitle('Aviso')
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            mbox.setText('Error en Copia de Seguridad: ' )
+            mbox.setText('Error en Copia de Seguridad: ')
             mbox.exec()
 
+    def restaurarBackUp(self):
+        try:
+            filename = var.dlgabrir.getOpenFileName(None, 'Restaurar Copia de Seguridad',
+                                                    '', '*.zip;;All Files(*)')
+            file = filename[0]
+            if var.dlgabrir.accept and file:
+                with zipfile.ZipFile(str(file), 'r') as bbdd:
+                    bbdd.extractall(pwd=None)
+
+                bbdd.close()
+                conexion.Conexion.mostrarDrivers()
+
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Copia de Seguridad Restaurada ')
+                msg.exec()
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('Error en Restauracion Copia Seguridad ')
+            msg.exec()

@@ -125,7 +125,14 @@ class Conexion():
                 while query1.next():
                     row = [query1.value(i) for i in range(query1.record().count())]  # funcion lambda
                     registros.append(row)
-            drivers.Drivers.cargarTablaDriver(registros)
+            # SI ESTAN TODOS DE BAJA DEBE MOSTRAR LA TABLA DE ALTA VACIA
+            if registros:
+                drivers.Drivers.cargarTablaDriver(registros)
+            else:
+                var.ui.tabDrivers.setRowCount(0)
+
+            #drivers.Drivers.cargarTablaDriver(registros)
+
 
             # print(registros) #printeamos los registros para verificarlos
         except Exception as error:
@@ -279,7 +286,12 @@ class Conexion():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
-                drivers.Drivers.cargarTablaDriver(registros)
+
+                if registros:
+                    drivers.Drivers.cargarTablaDriver(registros)
+                else:
+                    var.ui.tabDrivers.setRowCount(0)
+                #drivers.Drivers.cargarTablaDriver(registros)
             elif estado == 2:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "

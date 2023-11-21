@@ -1156,7 +1156,7 @@ background-color:rgb(100,100,100);
      <string>Herramienta</string>
     </property>
     <addaction name="actionCrear_Copia_Seguridad"/>
-    <addaction name="actionRestaurar_Copia_Seguridad_2"/>
+    <addaction name="actionRestaurar_Copia_Seguridad"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuCrear_Copia_Seguridad"/>
@@ -1225,7 +1225,7 @@ background-color:rgb(100,100,100);
     <string>Alt+S</string>
    </property>
   </action>
-  <action name="actionRestaurar_Copia_Seguridad_2">
+  <action name="actionRestaurar_Copia_Seguridad">
    <property name="text">
     <string>Restaurar Copia Seguridad</string>
    </property>

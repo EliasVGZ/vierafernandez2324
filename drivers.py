@@ -150,6 +150,7 @@ class Drivers():
 
     def cargarTablaDriver(registros):
         try:
+
             index = 0
             for registro in registros:
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
