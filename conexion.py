@@ -131,8 +131,7 @@ class Conexion():
             else:
                 var.ui.tabDrivers.setRowCount(0)
 
-            #drivers.Drivers.cargarTablaDriver(registros)
-
+            # drivers.Drivers.cargarTablaDriver(registros)
 
             # print(registros) #printeamos los registros para verificarlos
         except Exception as error:
@@ -221,7 +220,6 @@ class Conexion():
         except Exception as error:
             print("Error al modificar driver en conexion", error)
 
-
     def borraDriv(dni):
         global valor
         try:
@@ -268,11 +266,11 @@ class Conexion():
 
     def selectDrivers(estado):
         try:
-            registros=[]
+            registros = []
             if estado == 0:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
-                               "carnet, bajadriver from drivers")
+                              "carnet, bajadriver from drivers")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
@@ -291,7 +289,7 @@ class Conexion():
                     drivers.Drivers.cargarTablaDriver(registros)
                 else:
                     var.ui.tabDrivers.setRowCount(0)
-                #drivers.Drivers.cargarTablaDriver(registros)
+                # drivers.Drivers.cargarTablaDriver(registros)
             elif estado == 2:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
@@ -305,3 +303,17 @@ class Conexion():
             print("Error al seleccionar los drivers", error)
 
 
+    def selectDriversTodos(self):  # METODO PARA LLAMAR A TODOS
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select * from drivers order by codigo")
+
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+            return registros
+
+        except Exception as error:
+            print("error devolver todos los drivers", error)

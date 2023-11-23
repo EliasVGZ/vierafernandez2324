@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fb9fde0d-74d6-4319-915d-e68c0743e3ae" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbdd.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/bbdd.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conexion.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers.py" beforeDir="false" afterPath="$PROJECT_DIR$/drivers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventos.py" beforeDir="false" afterPath="$PROJECT_DIR$/eventos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/venta_principal.ui" beforeDir="false" afterPath="$PROJECT_DIR$/templates/venta_principal.ui" afterDir="false" />
@@ -40,16 +38,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/a22eliassvf/AppData/Local/Programs/Python/Python312/Scripts/pyuic6.exe&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/a22eliassvf/AppData/Local/pip/cache/wheels/09/54/33/be1b62ab43da8c38447e2d5184720db62fd1a0f80e2fdb42e2/blackbox-0.7.1-py3-none-any.whl",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\a22eliassvf\PycharmProjects\vierafernandez2324\templates" />

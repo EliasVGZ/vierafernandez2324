@@ -1,8 +1,11 @@
 import os.path
 import shutil
 from datetime import datetime
-from PyQt6 import QtWidgets, QtCore
-import var, sys, locale, zipfile, shutil, conexion
+
+from PyQt6 import QtWidgets, QtCore, QtSql
+
+import drivers
+import var, sys, locale, zipfile, shutil, conexion, xlwt
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
@@ -145,9 +148,56 @@ class Eventos():
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 msg.setText('Copia de Seguridad Restaurada ')
                 msg.exec()
+
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error en Restauracion Copia Seguridad ')
             msg.exec()
+
+    def exportarDatosXls(self):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')  # formato año, mes, dia, hora, minuto, segundos
+            file = (str(fecha) + ' _Datos.xls')
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en Fichero XLS', file, '.xls')
+
+            if var.dlgabrir.accept and filename:
+                wb = xlwt.Workbook()
+                sheet1 = wb.add_sheet('Conductores')
+                sheet1.write(0, 0, 'Codigo')  # el 0,0 es fila y columna
+                sheet1.write(0, 1, 'DNI')
+                sheet1.write(0, 2, 'Fecha Alta')
+                sheet1.write(0, 3, 'Apellidos')
+                sheet1.write(0, 4, 'Nombre')
+                sheet1.write(0, 5, 'Dirección')
+                sheet1.write(0, 6, 'Provincia')
+                sheet1.write(0, 7, 'Municipio')
+                sheet1.write(0, 8, 'Móvil')
+                sheet1.write(0, 9, 'Salario')
+                sheet1.write(0, 10, 'Carnet')
+                sheet1.write(0, 11, 'Fecha baja')
+
+                registros = conexion.Conexion.selectDriversTodos(self)
+
+                for fila, registro in enumerate(registros, 1):
+                    for i, valor in enumerate(registro[:-1]):# el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
+                        sheet1.write(fila, i, str(valor))
+                wb.save(directorio)
+
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)  # para que la ventana sea modal, que nadie pueda acceder a la ventana de atras
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Exportacion datos correcta ')
+                msg.exec()
+
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setModal(True)#para que la ventana sea modal, que nadie pueda acceder a la ventana de atras
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('Error Exportar Datos en Hoja de Cálculos ' + str(error))
+            msg.exec()
+

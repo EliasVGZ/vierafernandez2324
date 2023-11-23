@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1076</width>
-    <height>885</height>
+    <width>1082</width>
+    <height>862</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -157,8 +157,8 @@
           <rect>
            <x>14</x>
            <y>10</y>
-           <width>1028</width>
-           <height>194</height>
+           <width>1001</width>
+           <height>191</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1135,7 +1135,7 @@ background-color:rgb(100,100,100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1076</width>
+     <width>1082</width>
      <height>21</height>
     </rect>
    </property>
@@ -1157,6 +1157,8 @@ background-color:rgb(100,100,100);
     </property>
     <addaction name="actionCrear_Copia_Seguridad"/>
     <addaction name="actionRestaurar_Copia_Seguridad"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportar_Datos_xls"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuCrear_Copia_Seguridad"/>
@@ -1259,6 +1261,11 @@ background-color:rgb(100,100,100);
     <string>Alt+R</string>
    </property>
   </action>
+  <action name="actionExportar_Datos_xls">
+   <property name="text">
+    <string>Exportar Datos XLS</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>txtDni</tabstop>
@@ -1282,7 +1289,6 @@ background-color:rgb(100,100,100);
   <tabstop>btnModifDriver</tabstop>
   <tabstop>btnBajaDriver</tabstop>
   <tabstop>tabDrivers</tabstop>
-  <tabstop>panelPrincipal</tabstop>
  </tabstops>
  <resources/>
  <connections/>

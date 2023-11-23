@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_VentanaPrincipal(object):
     def setupUi(self, VentanaPrincipal):
         VentanaPrincipal.setObjectName("VentanaPrincipal")
-        VentanaPrincipal.resize(1076, 885)
+        VentanaPrincipal.resize(1082, 862)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(2)
         sizePolicy.setVerticalStretch(2)
@@ -75,7 +75,7 @@ class Ui_VentanaPrincipal(object):
         self.frame.setMidLineWidth(1)
         self.frame.setObjectName("frame")
         self.layoutWidget = QtWidgets.QWidget(parent=self.frame)
-        self.layoutWidget.setGeometry(QtCore.QRect(14, 10, 1028, 194))
+        self.layoutWidget.setGeometry(QtCore.QRect(14, 10, 1001, 191))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -404,7 +404,7 @@ class Ui_VentanaPrincipal(object):
         self.statusbar.setObjectName("statusbar")
         VentanaPrincipal.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(parent=VentanaPrincipal)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1076, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1082, 21))
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtWidgets.QMenu(parent=self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
@@ -447,10 +447,14 @@ class Ui_VentanaPrincipal(object):
         icon6.addPixmap(QtGui.QPixmap(".\\templates\\../IMG/restaurar_copia.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
         self.actionrestaurarCopia.setIcon(icon6)
         self.actionrestaurarCopia.setObjectName("actionrestaurarCopia")
+        self.actionExportar_Datos_xls = QtGui.QAction(parent=VentanaPrincipal)
+        self.actionExportar_Datos_xls.setObjectName("actionExportar_Datos_xls")
         self.menuArchivo.addAction(self.actionSalir)
         self.menuHelp.addAction(self.actAcerca_de)
         self.menuCrear_Copia_Seguridad.addAction(self.actionCrear_Copia_Seguridad)
         self.menuCrear_Copia_Seguridad.addAction(self.actionRestaurar_Copia_Seguridad)
+        self.menuCrear_Copia_Seguridad.addSeparator()
+        self.menuCrear_Copia_Seguridad.addAction(self.actionExportar_Datos_xls)
         self.menubar.addAction(self.menuArchivo.menuAction())
         self.menubar.addAction(self.menuCrear_Copia_Seguridad.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -486,7 +490,6 @@ class Ui_VentanaPrincipal(object):
         VentanaPrincipal.setTabOrder(self.btnAltaDriver, self.btnModifDriver)
         VentanaPrincipal.setTabOrder(self.btnModifDriver, self.btnBajaDriver)
         VentanaPrincipal.setTabOrder(self.btnBajaDriver, self.tabDrivers)
-        VentanaPrincipal.setTabOrder(self.tabDrivers, self.panelPrincipal)
 
     def retranslateUi(self, VentanaPrincipal):
         _translate = QtCore.QCoreApplication.translate
@@ -545,3 +548,4 @@ class Ui_VentanaPrincipal(object):
         self.actioncrearCopia.setShortcut(_translate("VentanaPrincipal", "Alt+S"))
         self.actionrestaurarCopia.setText(_translate("VentanaPrincipal", "Restaurar Copia Seguridad"))
         self.actionrestaurarCopia.setShortcut(_translate("VentanaPrincipal", "Alt+R"))
+        self.actionExportar_Datos_xls.setText(_translate("VentanaPrincipal", "Exportar Datos XLS"))
