@@ -187,6 +187,7 @@ class Conexion():
 
     def modifDriver(modificarNewDriver):
         try:
+            registros = []
             query = QtSql.QSqlQuery()
             query.prepare(
                 'update drivers set dnidriver = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
@@ -232,7 +233,6 @@ class Conexion():
                 while query1.next():
                     valor = query1.value(0)
                     print(valor)
-
             if valor == '':
                 fecha = datetime.today()
                 fecha = fecha.strftime("%d/%m/%Y")

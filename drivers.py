@@ -1,6 +1,6 @@
 import re
 
-from PyQt6 import QtWidgets, QtCore, QtGui
+from PyQt6 import QtWidgets, QtCore, QtGui, QtSql
 from PyQt6.QtWidgets import QComboBox
 
 import conexion
@@ -138,13 +138,12 @@ class Drivers():
             for i in chkLicencia:
                 if i.isChecked():
                     licencias.append(i.text())
-
             newDriver.append(' - '.join(licencias))
-
             conexion.Conexion.guardarClick(newDriver)
-
+            estado = 1
+            conexion.Conexion.selectDrivers(estado)
+            Drivers.limpiarPanel(self)
             print(newDriver)
-
         except Exception as error:
             print("error alta cliente", error)
 
@@ -187,7 +186,6 @@ class Drivers():
             registro = conexion.Conexion.oneDriver(fila[0])
             # LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO
             Drivers.cargarDatos(registro)
-
             print(fila)
 
         except Exception as error:
@@ -301,7 +299,9 @@ class Drivers():
         try:
             dni = var.ui.txtDni.text()
             conexion.Conexion.borraDriv(dni)  # Función EN conexion y le paso el dni
-            conexion.Conexion.mostrarDrivers()
+            #conexion.Conexion.mostrarDrivers()
+            estado = 1
+            conexion.Conexion.selectDrivers(estado)
 
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
