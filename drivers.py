@@ -144,12 +144,14 @@ class Drivers():
             dni_nuevo_conductor = newDriver[0]
             if conexion.Conexion.conductorEstaDadoDeBaja(self, dni_nuevo_conductor):
                 conexion.Conexion.volverDarAlta(dni_nuevo_conductor)
+                estado = 2
+                conexion.Conexion.selectDrivers(estado)
+            else:
 
+                conexion.Conexion.guardarClick(newDriver)
 
-            conexion.Conexion.guardarClick(newDriver)
-
-            estado = 1
-            conexion.Conexion.selectDrivers(estado)
+                estado = 1
+                conexion.Conexion.selectDrivers(estado)
             Drivers.limpiarPanel(self)
             print(newDriver)
 
@@ -206,29 +208,27 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codigoDriver(dni)
             Drivers.cargarDatos(registro)
-            registros = conexion.Conexion.mostrarDrivers()
-            Drivers.cargarTablaDriver(registros)
+            if var.ui.rbtTodos.isChecked():
+                estado = 0
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtAlta.isChecked():
+                estado = 1
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtBaja.isChecked():
+                estado = 2
+                conexion.Conexion.selectDrivers(estado)
+
             codigo = var.ui.lblCodbd.text()
             for fila in range(var.ui.tabDrivers.rowCount()):
                 if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
+                    for columna in range(var.ui.tabDrivers.columnCount()):
+                        item = var.ui.tabDrivers.item(fila, columna)
+                        if item is not None:
+                            item.setBackground(QtGui.QColor(255, 241, 150))
+                    # Hacer scroll hasta la fila resaltada
                     var.ui.tabDrivers.scrollToItem(var.ui.tabDrivers.item(fila, 0))
-                    var.ui.tabDrivers.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
-                    var.ui.tabDrivers.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(registro[3])))
-                    var.ui.tabDrivers.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(registro[4])))
-                    var.ui.tabDrivers.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(registro[8])))
-                    var.ui.tabDrivers.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(registro[10])))
-                    var.ui.tabDrivers.setItem(fila, 5, QtWidgets.QTableWidgetItem(str(registro[11])))
-                    var.ui.tabDrivers.item(fila, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                    var.ui.tabDrivers.item(fila, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                    var.ui.tabDrivers.item(fila, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                    var.ui.tabDrivers.item(fila, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                    var.ui.tabDrivers.item(fila, 0).setBackground(QtGui.QColor(255, 241, 160))
-                    var.ui.tabDrivers.item(fila, 1).setBackground(QtGui.QColor(255, 241, 160))
-                    var.ui.tabDrivers.item(fila, 2).setBackground(QtGui.QColor(255, 241, 160))
-                    var.ui.tabDrivers.item(fila, 3).setBackground(QtGui.QColor(255, 241, 160))
-                    var.ui.tabDrivers.item(fila, 4).setBackground(QtGui.QColor(255, 241, 160))
-                    var.ui.tabDrivers.item(fila, 5).setBackground(QtGui.QColor(255, 241, 160))
-                    break
+                    break  # Salir del bucle una vez que se encuentra el driver
+
         except Exception as error:
             print("ERROR AL SELECCIONAR EL CONDUCTOR", error)
 
@@ -262,12 +262,20 @@ class Drivers():
 
             if 'A' in registro[10]:
                 var.ui.chkA.setChecked(True)
+            else:
+                var.ui.chkA.setChecked(False)
             if 'B' in registro[10]:
                 var.ui.chkB.setChecked(True)
+            else:
+                var.ui.chkB.setChecked(False)
             if 'C' in registro[10]:
                 var.ui.chkC.setChecked(True)
+            else:
+                var.ui.chkC.setChecked(False)
             if 'D' in registro[10]:
                 var.ui.chkD.setChecked(True)
+            else:
+                var.ui.chkD.setChecked(False)
 
             print(registro)
 
@@ -328,7 +336,7 @@ class Drivers():
             elif var.ui.rbtBaja.isChecked():
                 estado = 2
                 conexion.Conexion.selectDrivers(estado)
-            Drivers.limpiarPanel(self)
+
 
         except Exception as error:
             print("Error en selEstado:", error)

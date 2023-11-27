@@ -28,7 +28,7 @@ class Main(QtWidgets.QMainWindow):
         var.dlgabrir = FileDialogAbrir()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
-        conexion.Conexion.mostrarDrivers()
+        conexion.Conexion.mostrarDrivers(self)
         estado = 1
         conexion.Conexion.selectDrivers(estado)
 
