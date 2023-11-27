@@ -64,7 +64,7 @@ class Conexion():
         except Exception as error:
             print("error seleccion municipios ", error)
 
-    @staticmethod
+
     def guardarClick(newDriver):
         try:
 
@@ -93,6 +93,14 @@ class Conexion():
                 query.bindValue(':salario', str(newDriver[8]))
                 query.bindValue(':carnet', str(newDriver[9]))
 
+                dni_conductor = newDriver[0]
+                conexion_instance = Conexion()
+                if conexion_instance.conductorEstaDadoDeBaja(dni_conductor):
+                    # Mostrar el cuadro de diálogo de confirmación solo si el conductor está dado de baja
+                    conexion_instance.volverDarAlta(dni_conductor)
+                    estado = 2
+                    Conexion.selectDrivers(estado)
+
             if query.exec():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
@@ -100,6 +108,7 @@ class Conexion():
                 mbox.setWindowIcon(QtGui.QIcon('./IMG/alta_cliente.png'))
                 mbox.setText('Empleado dado de alta')
                 mbox.exec()
+
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
@@ -317,3 +326,53 @@ class Conexion():
 
         except Exception as error:
             print("error devolver todos los drivers", error)
+
+
+    def volverDarAlta(dni):
+        try:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle("Dar Alta")
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+            mbox.setText("El conductor está dado de baja.\n¿Desea darlo de alta de nuevo?")
+            mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+            mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
+            mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+            mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
+            mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
+
+            if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+                query = QtSql.QSqlQuery()
+                query.prepare("update drivers set bajadriver = :baja where dnidriver = :dni")
+                query.bindValue(":dni", dni)
+                query.bindValue(":baja", None)
+                if query.exec():
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle("Aviso")
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setText("Conductor dado de alta")
+                    mbox.exec()
+                    drivers.Drivers.cargarTablaDriver()
+                else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle("Aviso")
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mbox.setText("El conductor no se pudo dar de alta")
+                    mbox.exec()
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle("Aviso")
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mbox.setText("Conductor no dado de alta")
+                mbox.exec()
+
+        except Exception as error:
+            print("Error al dar alta de nuevo conductor en BD", error)
+
+
+    def conductorEstaDadoDeBaja(self, dni):
+        query = QtSql.QSqlQuery()
+        query.prepare("SELECT bajadriver FROM drivers WHERE dnidriver = :dni")
+        query.bindValue(":dni", dni)
+        if query.exec() and query.next():
+            return query.value(0) is not None
+        return False

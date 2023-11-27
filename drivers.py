@@ -139,11 +139,20 @@ class Drivers():
                 if i.isChecked():
                     licencias.append(i.text())
             newDriver.append(' - '.join(licencias))
+
+            #DAR DE ALTA UN CONDUCTOR QUE ESTABA DADO DE BAJA!!
+            dni_nuevo_conductor = newDriver[0]
+            if conexion.Conexion.conductorEstaDadoDeBaja(self, dni_nuevo_conductor):
+                conexion.Conexion.volverDarAlta(dni_nuevo_conductor)
+
+
             conexion.Conexion.guardarClick(newDriver)
+
             estado = 1
             conexion.Conexion.selectDrivers(estado)
             Drivers.limpiarPanel(self)
             print(newDriver)
+
         except Exception as error:
             print("error alta cliente", error)
 
@@ -278,7 +287,6 @@ class Drivers():
             ##AÑADIR PROVINCIAS AL CONDUCTOR
             prov = var.ui.cmbProvincia.currentText()
             modificarNewDriver.insert(6, prov)
-
             muni = var.ui.cmbLocalidad.currentText()
             modificarNewDriver.insert(7, muni)
 
@@ -290,8 +298,6 @@ class Drivers():
 
             modificarNewDriver.append(' - '.join(licencias))
             conexion.Conexion.modifDriver(modificarNewDriver)
-
-
         except Exception as error:
             print("Error al modificar el driverrrrrrrrrrrrrrrrrr", error)
 
@@ -299,9 +305,7 @@ class Drivers():
         try:
             dni = var.ui.txtDni.text()
             conexion.Conexion.borraDriv(dni)  # Función EN conexion y le paso el dni
-            #conexion.Conexion.mostrarDrivers()
-            estado = 1
-            conexion.Conexion.selectDrivers(estado)
+            conexion.Conexion.selectDrivers(1)
 
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
@@ -313,14 +317,20 @@ class Drivers():
 
     def selEstado(self):
 
-        if var.ui.rbtTodos.isChecked():  ##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA
-            estado = 0
-            conexion.Conexion.selectDrivers(estado)
-        elif var.ui.rbtAlta.isChecked():
-            estado = 1
-            conexion.Conexion.selectDrivers(estado)
-        elif var.ui.rbtBaja.isChecked():
-            estado = 2
-            conexion.Conexion.selectDrivers(estado)
+        try:
+
+            if var.ui.rbtTodos.isChecked():  ##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA
+                estado = 0
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtAlta.isChecked():
+                estado = 1
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtBaja.isChecked():
+                estado = 2
+                conexion.Conexion.selectDrivers(estado)
+            Drivers.limpiarPanel(self)
+
+        except Exception as error:
+            print("Error en selEstado:", error)
 
 
