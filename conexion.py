@@ -65,6 +65,7 @@ class Conexion():
         except Exception as error:
             print("error seleccion municipios ", error)
 
+    @staticmethod
     def guardarClick(newDriver):
         try:
             dni = str(newDriver[0])
@@ -94,28 +95,20 @@ class Conexion():
                 query.bindValue(':salario', str(newDriver[8]))
                 query.bindValue(':carnet', str(newDriver[9]))
 
-
+                """
                 dni_conductor = newDriver[0]
                 conexion_instance = Conexion()
                 if conexion_instance.conductorEstaDadoDeBaja(dni_conductor):
                     # Mostrar el cuadro de diálogo de confirmación solo si el conductor está dado de baja
                     conexion_instance.volverDarAlta(dni_conductor)
                     estado = 2
-                    Conexion.selectDrivers(estado)
+                    Conexion.selectDrivers(estado)"""
 
             if query.exec():
-                mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('./IMG/alta_cliente.png'))
-                mbox.setText('Empleado dado de alta')
-                mbox.exec()
+                Conexion.mostrarDrivers(self=None)
+                return True
             else:
-                mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                mbox.setText(query.lastError().text())
-                mbox.exec()
+                return False
 
             Conexion.mostrarDrivers()
 
@@ -124,7 +117,6 @@ class Conexion():
 
 
     def mostrarDrivers(self):
-
         try:
             registros = []
             if var.ui.rbtAlta.isChecked():
@@ -288,13 +280,14 @@ class Conexion():
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setText('Datos conductor modificado')
                     mbox.exec()
-                    Conexion.mostrarDrivers(self)
+
                 else:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setWindowTitle('Aviso')
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     mbox.setText(query.lastError().text())
                     mbox.exec()
+                Conexion.mostrarDrivers(self=None)
 
         except Exception as error:
             print("Error al modificar driver en conexion", error)

@@ -48,6 +48,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearBackUp)#Herramienta
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarBackUp)#Herramienta
         var.ui.actionExportar_Datos_xls.triggered.connect(eventos.Eventos.exportarDatosXls)#Herramienta
+        var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento

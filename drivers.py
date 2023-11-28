@@ -147,12 +147,20 @@ class Drivers():
                 estado = 2
                 conexion.Conexion.selectDrivers(estado)
             else:
+                valor = conexion.Conexion.guardarClick(newDriver)
+                if valor == True:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setWindowIcon(QtGui.QIcon('./IMG/alta_cliente.png'))
+                    mbox.setText('Empleado dado de alta')
+                    mbox.exec()
+                elif valor == False:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mbox.exec()
 
-                conexion.Conexion.guardarClick(newDriver)
-
-                estado = 1
-                conexion.Conexion.selectDrivers(estado)
-            Drivers.limpiarPanel(self)
             print(newDriver)
 
         except Exception as error:
