@@ -29,7 +29,8 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
         conexion.Conexion.mostrarDrivers(self)
-        conexion.Conexion.selectDrivers(1)#PARA QUE AL COMENZAR EL PRO ME MUESTRE LOS DE ALTA
+        estado = 1
+        conexion.Conexion.selectDrivers(estado)#PARA QUE AL COMENZAR EL PRO ME MUESTRE LOS DE ALTA
 
         """ESTO ES PARA QUE CUANDO ARRANQUE ME MUESTRE LOS DE ALTA"""
         #conexion_instance = conexion.Conexion()  # instancio la clase Conexion
