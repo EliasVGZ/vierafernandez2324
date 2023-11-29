@@ -29,8 +29,12 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov(self)
         conexion.Conexion.mostrarDrivers(self)
-        estado = 1
-        conexion.Conexion.selectDrivers(estado)
+
+        """ESTO ES PARA QUE CUANDO ARRANQUE ME MUESTRE LOS DE ALTA"""
+        conexion_instance = conexion.Conexion()  # instancio la clase Conexion
+        conductores_alta = conexion_instance.driversEstadoAlta()
+        drivers.Drivers.cargarTablaDriver(conductores_alta)
+        """LA OTRA FORMA SERIA ESTADO = 1 Y LUEGO conexion.Conexion.selectDrivers(estado)"""
 
         """ZONA DE EVENTOS DEL BOTON"""
 

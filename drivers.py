@@ -119,6 +119,7 @@ class Drivers():
 
     def altaDriver(self):
         try:
+            dni = var.ui.txtDni.text()
             driver = [var.ui.txtDni, var.ui.txtFechaAlta, var.ui.txtApellido, var.ui.txtNombre, var.ui.txtDireccion,
                       var.ui.txtMovil, var.ui.txtSalario]
             newDriver = []
@@ -140,10 +141,11 @@ class Drivers():
                     licencias.append(i.text())
             newDriver.append(' - '.join(licencias))
 
-            #DAR DE ALTA UN CONDUCTOR QUE ESTABA DADO DE BAJA!!
+            # DAR DE ALTA UN CONDUCTOR QUE ESTABA DADO DE BAJA!!
             dni_nuevo_conductor = newDriver[0]
-            if conexion.Conexion.conductorEstaDadoDeBaja(self, dni_nuevo_conductor):
-                conexion.Conexion.volverDarAlta(dni_nuevo_conductor)
+            if conexion.Conexion.conductorEstaDadoDeBaja(self, dni):
+                conexion.Conexion.volverDarAlta(dni)
+
                 estado = 2
                 conexion.Conexion.selectDrivers(estado)
             else:
@@ -339,14 +341,22 @@ class Drivers():
                 estado = 0
                 conexion.Conexion.selectDrivers(estado)
             elif var.ui.rbtAlta.isChecked():
+
+                conexion_instance = conexion.Conexion()  # instancio la clase Conexion
+                conductores_alta = conexion_instance.driversEstadoAlta()
+                Drivers.cargarTablaDriver(conductores_alta)
+
                 estado = 1
-                conexion.Conexion.selectDrivers(estado)
+                # conexion.Conexion.selectDrivers(estado)
             elif var.ui.rbtBaja.isChecked():
+
+                conexion_instance = conexion.Conexion()
+                conductores_baja = conexion_instance.driversEstadoBaja()
+                Drivers.cargarTablaDriver(conductores_baja)
+
                 estado = 2
-                conexion.Conexion.selectDrivers(estado)
+                # conexion.Conexion.selectDrivers(estado)
 
 
         except Exception as error:
             print("Error en selEstado:", error)
-
-

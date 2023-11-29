@@ -204,8 +204,7 @@ class Eventos():
 
     def importardatosxls(self):
         try:
-            filename = var.dlgabrir.getOpenFileName(None, 'Importar datos', '',
-                                                    '*.xls;;All Files(*)')
+            filename = var.dlgabrir.getOpenFileName(None, 'Importar datos', '', '*.xls;;All Files(*)')
             if var.dlgabrir.accept and filename != '':
                 file = filename[0]
                 documento = xlrd.open_workbook(file)
@@ -219,13 +218,25 @@ class Eventos():
                         new = []
                         for j in range(columnas):
                             if j == 1:
-                                dato = xlrd.xldate_as_datetime(datos.cell_value(i,j), documento.datemode)
-                                print(dato)
+                                dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
                                 dato = dato.strftime('%d/%m/%Y')
-                                print(dato)
                                 new.append(str(dato))
+
+                                # Validar DNI antes de guardar
+                                var.ui.txtDni.setText(
+                                    str(datos.cell_value(i, j)))  # Configura el DNI en el campo de texto
+                                if not drivers.Drivers.validarDni():
+                                    # Mostrar mensaje de error y detener el proceso de importación
+                                    msg = QtWidgets.QMessageBox()
+                                    msg.setModal(True)
+                                    msg.setWindowTitle('Aviso')
+                                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                                    msg.setText(f'DNI no válido en la fila {i + 1}. Importación cancelada.')
+                                    msg.exec()
+                                    return  # Detener la importación
+
                             else:
-                                new.append(str(datos.cell_value(i,j)))
+                                new.append(str(datos.cell_value(i, j)))
                         conexion.Conexion.guardarClick(new)
                     if i == filas - 1:
                         msg = QtWidgets.QMessageBox()
@@ -241,6 +252,11 @@ class Eventos():
             msg.setModal(True)
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText(error)
+            msg.setText(str(error))
             msg.exec()
+
+
+
+
+
 

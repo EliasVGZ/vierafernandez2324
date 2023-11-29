@@ -352,13 +352,17 @@ class Conexion():
                     var.ui.tabDrivers.setRowCount(0)
 
             elif estado == 1:
+
+                Conexion.driversEstadoAlta()
+
+                """
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
                               "carnet, bajadriver from drivers where bajadriver is null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)
+                        registros.append(row)"""
 
                 if registros:
                     drivers.Drivers.cargarTablaDriver(registros)
@@ -367,13 +371,16 @@ class Conexion():
 
 
             elif estado == 2:
+
+                Conexion.driversEstadoBaja()
+                """
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
                               "carnet, bajadriver from drivers where bajadriver is not null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)
+                        registros.append(row)"""
                 
                 drivers.Drivers.cargarTablaDriver(registros)
         except Exception as error:
@@ -446,7 +453,8 @@ class Conexion():
         try:
             conductores_alta = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM drivers WHERE bajadriver IS NULL")
+            query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
+                              "carnet, bajadriver from drivers where bajadriver is null")
 
             if query.exec():
                 while query.next():
@@ -457,6 +465,24 @@ class Conexion():
 
         except Exception as error:
             print("Error al obtener conductores de alta:", error)
+            return []
+
+    def driversEstadoBaja(self):
+        try:
+            conductores_baja = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
+                              "carnet, bajadriver from drivers where bajadriver is not null")
+
+            if query.exec():
+                while query.next():
+                    conductor = [str(query.value(i)) for i in range(12)]
+                    conductores_baja.append(conductor)
+
+            return conductores_baja
+
+        except Exception as error:
+            print("Error al obtener conductores de baja:", error)
             return []
 
     def conductorExiste(self, dni):
