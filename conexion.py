@@ -69,7 +69,6 @@ class Conexion():
     def guardarClick(newDriver):
         try:
             dni = str(newDriver[0])
-
             if (dni.strip() == "" or newDriver[2].strip() == "" or newDriver[3].strip() == "" or newDriver[
                 7].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
@@ -79,6 +78,7 @@ class Conexion():
                 mensaje = ('Faltan datos:\n Dni, Apellido, Nombre, Fecha de alta o Movil no pueden estar vacíos')
                 mbox.setText(mensaje)
                 mbox.exec()
+
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
@@ -95,33 +95,23 @@ class Conexion():
                 query.bindValue(':salario', str(newDriver[8]))
                 query.bindValue(':carnet', str(newDriver[9]))
 
-                """
-                dni_conductor = newDriver[0]
-                conexion_instance = Conexion()
-                if conexion_instance.conductorEstaDadoDeBaja(dni_conductor):
-                    # Mostrar el cuadro de diálogo de confirmación solo si el conductor está dado de baja
-                    conexion_instance.volverDarAlta(dni_conductor)
-                    estado = 2
-                    Conexion.selectDrivers(estado)"""
-
             if query.exec():
                 Conexion.mostrarDrivers(self=None)
                 return True
             else:
                 return False
 
-            Conexion.mostrarDrivers()
+            # Conexion.mostrarDrivers()
+            conexion.Conexion.selectDrivers(1)
 
         except Exception as error:
             print("Error guardando los drivers", error)
-
 
     def mostrarDrivers(self):
         try:
             registros = []
             if var.ui.rbtAlta.isChecked():
-                estado = 1
-                Conexion.selectDrivers(estado)
+                Conexion.selectDrivers(1)
             else:
                 query1 = QtSql.QSqlQuery()
                 query1.prepare("select codigo, apeldriver, nombredriver, movildriver, "
@@ -187,7 +177,7 @@ class Conexion():
             print("Error en búsqueda de código de un conductor: ", error)
             return None
 
-    def modifDriver(modificarNewDriver, self=None):
+    def modifDriver(modificarNewDriver):
         try:
             registro = Conexion.oneDriver(int(modificarNewDriver[0]))
             if modificarNewDriver == registro[:1]:
@@ -352,17 +342,13 @@ class Conexion():
                     var.ui.tabDrivers.setRowCount(0)
 
             elif estado == 1:
-
-                Conexion.driversEstadoAlta()
-
-                """
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
                               "carnet, bajadriver from drivers where bajadriver is null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)"""
+                        registros.append(row)
 
                 if registros:
                     drivers.Drivers.cargarTablaDriver(registros)
@@ -371,17 +357,14 @@ class Conexion():
 
 
             elif estado == 2:
-
-                Conexion.driversEstadoBaja()
-                """
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
                               "carnet, bajadriver from drivers where bajadriver is not null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)"""
-                
+                        registros.append(row)
+
                 drivers.Drivers.cargarTablaDriver(registros)
         except Exception as error:
             print("Error al seleccionar los drivers", error)
@@ -417,7 +400,7 @@ class Conexion():
                 query = QtSql.QSqlQuery()
                 query.prepare("update drivers set bajadriver = :baja where dnidriver = :dni")
                 query.bindValue(":dni", dni)
-                query.bindValue(":baja", None)
+                # query.bindValue(":baja", None)
                 if query.exec():
                     mbox = QtWidgets.QMessageBox()
                     mbox.setWindowTitle("Aviso")
@@ -445,8 +428,11 @@ class Conexion():
         query = QtSql.QSqlQuery()
         query.prepare("SELECT bajadriver FROM drivers WHERE dnidriver = :dni")
         query.bindValue(":dni", dni)
+
         if query.exec() and query.next():
-            return query.value(0) is not None
+            bajadriver_value = query.value(0)
+            return bajadriver_value is not None and bajadriver_value != 0
+
         return False
 
     def driversEstadoAlta(self):
@@ -454,7 +440,7 @@ class Conexion():
             conductores_alta = []
             query = QtSql.QSqlQuery()
             query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
-                              "carnet, bajadriver from drivers where bajadriver is null")
+                          "carnet, bajadriver from drivers where bajadriver is null")
 
             if query.exec():
                 while query.next():
@@ -472,7 +458,7 @@ class Conexion():
             conductores_baja = []
             query = QtSql.QSqlQuery()
             query.prepare("select codigo, apeldriver, nombredriver, movildriver, "
-                              "carnet, bajadriver from drivers where bajadriver is not null")
+                          "carnet, bajadriver from drivers where bajadriver is not null")
 
             if query.exec():
                 while query.next():
@@ -487,7 +473,7 @@ class Conexion():
 
     def conductorExiste(self, dni):
         query = QtSql.QSqlQuery()
-        query.prepare("SELECT COUNT(*) FROM drivers WHERE dnidriver = :dni")
+        query.prepare("SELECT COUNT(*) FROM drivers WHERE bajadriver = :dni")
         query.bindValue(":dni", dni)
 
         if query.exec() and query.next():
@@ -495,4 +481,3 @@ class Conexion():
             return count > 0
 
         return False
-

@@ -145,9 +145,7 @@ class Drivers():
             dni_nuevo_conductor = newDriver[0]
             if conexion.Conexion.conductorEstaDadoDeBaja(self, dni):
                 conexion.Conexion.volverDarAlta(dni)
-
-                estado = 2
-                conexion.Conexion.selectDrivers(estado)
+                conexion.Conexion.selectDrivers(2)
             else:
                 valor = conexion.Conexion.guardarClick(newDriver)
                 if valor == True:
@@ -164,6 +162,9 @@ class Drivers():
                     mbox.exec()
 
             print(newDriver)
+
+        except Exception as error:
+            print("error alta cliente", error)
 
         except Exception as error:
             print("error alta cliente", error)
@@ -342,20 +343,12 @@ class Drivers():
                 conexion.Conexion.selectDrivers(estado)
             elif var.ui.rbtAlta.isChecked():
 
-                conexion_instance = conexion.Conexion()  # instancio la clase Conexion
-                conductores_alta = conexion_instance.driversEstadoAlta()
-                Drivers.cargarTablaDriver(conductores_alta)
-
                 estado = 1
-                # conexion.Conexion.selectDrivers(estado)
+                conexion.Conexion.selectDrivers(estado)
             elif var.ui.rbtBaja.isChecked():
 
-                conexion_instance = conexion.Conexion()
-                conductores_baja = conexion_instance.driversEstadoBaja()
-                Drivers.cargarTablaDriver(conductores_baja)
-
                 estado = 2
-                # conexion.Conexion.selectDrivers(estado)
+                conexion.Conexion.selectDrivers(estado)
 
 
         except Exception as error:
