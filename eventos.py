@@ -204,9 +204,9 @@ class Eventos():
 
     def importardatosxls(self):
         try:
-            filename = var.dlgabrir.getOpenFileName(None, 'Importar datos', '', '*.xls;;All Files(*)')
-            if var.dlgabrir.accept and filename != '':
-                file = filename[0]
+            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos', '', '*.xls;;All Files(*)')
+            if filename:
+                file = filename  # filename ya es la ruta del archivo seleccionado
                 documento = xlrd.open_workbook(file)
                 datos = documento.sheet_by_index(0)
                 filas = datos.nrows
@@ -223,8 +223,7 @@ class Eventos():
                                 new.append(str(dato))
 
                                 # Validar DNI antes de guardar
-                                var.ui.txtDni.setText(
-                                    str(datos.cell_value(i, j)))  # Configura el DNI en el campo de texto
+                                var.ui.txtDni.setText(str(datos.cell_value(i, j)))  # Configura el DNI en el campo de texto
                                 if not drivers.Drivers.validarDni():
                                     # Mostrar mensaje de error y detener el proceso de importación
                                     msg = QtWidgets.QMessageBox()
@@ -254,6 +253,8 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText(str(error))
             msg.exec()
+
+
 
 
 
