@@ -60,6 +60,7 @@ class Drivers():
         except Exception as error:
             print('error poner salario', error)
 
+
     def validarMovil(self=None):
         try:
             var.ui.txtApellido.setText(var.ui.txtApellido.text().title())
@@ -80,14 +81,13 @@ class Drivers():
                 var.ui.txtMovil.clear()
                 var.ui.txtMovil.setFocus()
 
-
         except Exception as error:
             print('error poner movil', error)
 
-    def validarDni(self=None):
+    #@staticmethod
+    def validarDni(dni):
         try:
-            dni = var.ui.txtDni.text()
-            dni = dni.upper()
+            dni = str(dni).upper()
             var.ui.txtDni.setText(dni)
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
@@ -101,6 +101,7 @@ class Drivers():
                 if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
                     var.ui.lblValidarDni.setStyleSheet('color:green;')
                     var.ui.lblValidarDni.setText('V')
+                    return True
                 else:
                     var.ui.lblValidarDni.setStyleSheet('color:red;')
                     var.ui.lblValidarDni.setText('X')
@@ -148,6 +149,7 @@ class Drivers():
                 conexion.Conexion.selectDrivers(2)
             else:
                 valor = conexion.Conexion.guardarClick(newDriver)
+                conexion.Conexion.selectDrivers(1)
                 if valor == True:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setWindowTitle('Aviso')

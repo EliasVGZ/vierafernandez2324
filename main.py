@@ -32,11 +32,6 @@ class Main(QtWidgets.QMainWindow):
         estado = 1
         conexion.Conexion.selectDrivers(estado)#PARA QUE AL COMENZAR EL PRO ME MUESTRE LOS DE ALTA
 
-        """ESTO ES PARA QUE CUANDO ARRANQUE ME MUESTRE LOS DE ALTA"""
-        #conexion_instance = conexion.Conexion()  # instancio la clase Conexion
-        #conductores_alta = conexion_instance.driversEstadoAlta()
-        #drivers.Drivers.cargarTablaDriver(conductores_alta)
-        """LA OTRA FORMA SERIA ESTADO = 1 Y LUEGO conexion.Conexion.selectDrivers(estado)"""
 
         """ZONA DE EVENTOS DEL BOTON"""
 
@@ -57,7 +52,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
-        var.ui.txtDni.editingFinished.connect(drivers.Drivers.validarDni)  #cuando estás escribiendo y salgas, ejecuta ese evento
+        var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDni(var.ui.txtDni.text()))  #cuando estás escribiendo y salgas, ejecuta ese evento
         var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarMovil) #valida que el movil tiene 9 digitos
         var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarSalario)
 

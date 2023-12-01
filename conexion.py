@@ -96,13 +96,12 @@ class Conexion():
                 query.bindValue(':carnet', str(newDriver[9]))
 
             if query.exec():
-                Conexion.mostrarDrivers()
+                Conexion.mostrarDrivers(self=None)
                 return True
             else:
                 return False
 
             Conexion.mostrarDrivers(self=None)
-            conexion.Conexion.selectDrivers(1)
 
         except Exception as error:
             print("Error guardando los drivers", error)
