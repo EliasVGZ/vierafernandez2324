@@ -1,9 +1,10 @@
-import sqlite3
-from calendar import Calendar
 
+from calendar import Calendar
+from windowaux import *
 from PyQt6 import QtWidgets, QtSql, QtGui, QtCore
 from datetime import date, datetime
 import drivers
+import eventos
 import var
 
 
@@ -96,11 +97,9 @@ class Conexion():
                 query.bindValue(':carnet', str(newDriver[9]))
 
             if query.exec():
-                Conexion.mostrarDrivers(self=None)
                 return True
             else:
                 return False
-
             Conexion.mostrarDrivers(self=None)
 
         except Exception as error:
@@ -110,7 +109,8 @@ class Conexion():
         try:
             registros = []
             if var.ui.rbtAlta.isChecked():
-                Conexion.selectDrivers(1)
+                estado = 1
+                Conexion.selectDrivers(estado)
             else:
                 query1 = QtSql.QSqlQuery()
                 query1.prepare("select codigo, apeldriver, nombredriver, movildriver, "
@@ -178,35 +178,101 @@ class Conexion():
 
     def modifDriver(modificarNewDriver):
         try:
-            query = QtSql.QSqlQuery()
-            query.prepare(
-                'update drivers set dnidriver = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
-                'provdriver = :provincia, munidriver = :municipio, movildriver = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
+            registro = Conexion.oneDriver(int(modificarNewDriver[0]))
+            if modificarNewDriver == registro[:-1]:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('No hay datos que modificar. Desea cambiar la fecha o eliminar fecha de baja?')
+                msg.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No |
+                    QtWidgets.QMessageBox.StandardButton.Cancel)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Yes).setText("Alta")
+                msg.button(QtWidgets.QMessageBox.StandardButton.No).setText("Modificar")
+                msg.button(QtWidgets.QMessageBox.StandardButton.Cancel).setText('Cancelar')
+                opcion = msg.exec()
+                if opcion == QtWidgets.QMessageBox.StandardButton.Yes:
+                    if registro[11] != '':
+                        query1 = QtSql.QSqlQuery()
+                        query1.prepare('update drivers set bajadriver = NULL where '
+                                       ' dnidriver = :dni')
+                        query1.bindValue(':dni', str(modificarNewDriver[1]))
+                        if query1.exec():
+                            msg = QtWidgets.QMessageBox()
+                            msg.setWindowTitle('Aviso')
+                            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                            msg.setText('Datos Conductor Modificados')
+                            msg.exec()
+                            Conexion.selectDrivers(2)
+                    else:
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle('Aviso')
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('El conductor está en alta. Nada que modificar')
+                        msg.exec()
+                        Conexion.selectDrivers(1)
+                elif opcion == QtWidgets.QMessageBox.StandardButton.No:
+                    var.calendar = Calendar()
+                    var.calendar.show()
+                    dia = datetime.now().day
+                    mes = datetime.now().month
+                    ano = datetime.now().year
+                    data = var.calendar.selectionChanged.connect(drivers.Drivers.cargarFecha(QtCore.QDate))
+                    data = drivers.Drivers.cargarFecha(QtCore.QDate)
 
-            query.bindValue(':codigo', int(modificarNewDriver[0]))
-            query.bindValue(':dni', str(modificarNewDriver[1]))
-            query.bindValue(':alta', str(modificarNewDriver[2]))
-            query.bindValue(':apel', str(modificarNewDriver[3]))
-            query.bindValue(':nombre', str(modificarNewDriver[4]))
-            query.bindValue(':direccion', str(modificarNewDriver[5]))
-            query.bindValue(':provincia', str(modificarNewDriver[6]))
-            query.bindValue(':municipio', str(modificarNewDriver[7]))
-            query.bindValue(':movil', str(modificarNewDriver[8]))
-            query.bindValue(':salario', str(modificarNewDriver[9]))
-            query.bindValue(':carnet', str(modificarNewDriver[10]))
-            if query.exec():
-                mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setText('Datos conductor modificado')
-                mbox.exec()
-                Conexion.mostrarDrivers()
+                    if registro[11] != '':
+                        query1 = QtSql.QSqlQuery()
+                        query1.prepare('update drivers set bajadriver = :data where '
+                                       ' dnidriver = :dni')
+                        query1.bindValue(':data', str(data))
+                        query1.bindValue(':dni', str(modificarNewDriver[1]))
+                        if query1.exec():
+                            msg = QtWidgets.QMessageBox()
+                            msg.setWindowTitle('Aviso')
+                            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                            msg.setText('Baja Modificada. Nueva Fecha Baja:', str(data))
+                            msg.exec()
+                        Conexion.selectDrivers(0)
+                    else:
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle('Aviso')
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('El conductor está en alta. Nada que modificar')
+                        msg.exec()
+                        Conexion.selectDrivers(1)
+                elif opcion == QtWidgets.QMessageBox.StandardButton.Cancel:
+                    pass
             else:
-                mbox = QtWidgets.QMessageBox()
-                mbox.setWindowTitle('Aviso')
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                mbox.setText(query.lastError().text())
-                mbox.exec()
+
+                query = QtSql.QSqlQuery()
+                query.prepare(
+                    'update drivers set dnidriver = :dni, altadriver = :alta, apeldriver = :apel, nombredriver = :nombre, direcciondriver = :direccion, '
+                    'provdriver = :provincia, munidriver = :municipio, movildriver = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
+
+                query.bindValue(':codigo', int(modificarNewDriver[0]))
+                query.bindValue(':dni', str(modificarNewDriver[1]))
+                query.bindValue(':alta', str(modificarNewDriver[2]))
+                query.bindValue(':apel', str(modificarNewDriver[3]))
+                query.bindValue(':nombre', str(modificarNewDriver[4]))
+                query.bindValue(':direccion', str(modificarNewDriver[5]))
+                query.bindValue(':provincia', str(modificarNewDriver[6]))
+                query.bindValue(':municipio', str(modificarNewDriver[7]))
+                query.bindValue(':movil', str(modificarNewDriver[8]))
+                query.bindValue(':salario', str(modificarNewDriver[9]))
+                query.bindValue(':carnet', str(modificarNewDriver[10]))
+                if query.exec():
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setText('Datos conductor modificado')
+                    mbox.exec()
+                    Conexion.mostrarDrivers(1)
+                else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mbox.setText(query.lastError().text())
+                    mbox.exec()
 
         except Exception as error:
             print("Error al modificar driver en conexion", error)
