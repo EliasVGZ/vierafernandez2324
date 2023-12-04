@@ -84,11 +84,31 @@ class Drivers():
         except Exception as error:
             print('error poner movil', error)
 
+    def validarKilometros(self=None):
+        try:
+            kilometros = var.ui.txtKilometros.text()
+            if kilometros != "":
+                patronReg = r'^\d{1,6}$'
+                if not re.match(patronReg, kilometros):
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Valor de Kilómetros Incorrecto (hasta 6 dígitos)')
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.exec()
+                    var.ui.txtKilometros.setText("")
+                    var.ui.txtKilometros.setFocus()
+
+        except Exception as error:
+            print('Error al poner kilómetros', error)
+
     #@staticmethod
     def validarDni(dni):
         try:
             dni = str(dni).upper()
-            var.ui.txtDni.setText(dni)
+            var.ui.txtDni.setText(str(dni))
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
             reemp_digito_extranjero = {'X': '0', 'Y': '1', 'Z': '2'}
