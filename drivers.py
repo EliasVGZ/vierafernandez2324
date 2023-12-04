@@ -163,22 +163,19 @@ class Drivers():
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     mbox.exec()
 
-            print(newDriver)
-
         except Exception as error:
             print("error alta cliente", error)
 
-        except Exception as error:
-            print("error alta cliente", error)
 
+
+    """ ESTE METODO LO VOY  CAMBIAR POR EL QUE TIENE DEBAJO 
     def cargarTablaDriver(registros):
         try:
 
             index = 0
             for registro in registros:
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
-                var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(
-                    str(registro[0])))  # añadimos el new driver en la tabla
+                var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new driver en la tabla
                 var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(
                     str(registro[1])))  # añadimos el new driver en la tabla
                 var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(
@@ -190,13 +187,32 @@ class Drivers():
                 var.ui.tabDrivers.setItem(index, 5, QtWidgets.QTableWidgetItem(
                     str(registro[5])))  # añadimos el new driver en la tabla
 
-                var.ui.tabDrivers.item(index, 0).setTextAlignment(
-                    QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
+                var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)  # Alineamos los items seleccionados
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
+
+        except Exception as error:
+            print("Error mostrar tabla", error)
+        """
+
+    def cargarTablaDriver(registros):
+        try:
+            index = 0
+            for registro in registros:
+                var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila en la tabla
+
+                # Añade elementos a la tabla en diferentes columnas
+                for i in range(len(registro)):
+                    var.ui.tabDrivers.setItem(index, i, QtWidgets.QTableWidgetItem(str(registro[i])))
+
+                # Alinea los elementos en algunas columnas al centro
+                for col_index in [0, 3, 4, 5]:
+                    var.ui.tabDrivers.item(index, col_index).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                index += 1
 
         except Exception as error:
             print("Error mostrar tabla", error)

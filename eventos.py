@@ -205,8 +205,6 @@ class Eventos():
     def importardatosxls(self):
         try:
             estado = 0
-
-
             filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
                                                        '', '*.xls;;All Files (*)')
             if filename:
@@ -240,7 +238,6 @@ class Eventos():
                             msg.setText('Hay DNI incorrectos')
                             msg.exec()
                 var.ui.lblValidarDni.setText('')
-
 
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
