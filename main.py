@@ -4,7 +4,9 @@ import PyQt6
 from PyQt6 import QtWidgets, QtCore
 from PyQt6.QtWidgets import QApplication
 
+import clientes
 import conexion
+import conexionClientes
 import drivers
 import eventos
 from venta_principal import *
@@ -27,10 +29,17 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacercade=DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
         conexion.Conexion.conexion()
+        conexionClientes.ConexionCliente.conexion()
+
         conexion.Conexion.cargaprov(self)
+        conexionClientes.ConexionCliente.cargarprov()
+
         conexion.Conexion.mostrarDrivers(self)
+        conexionClientes.ConexionCliente.mostrarClientes(self)
+
         estado = 1
         conexion.Conexion.selectDrivers(estado)#PARA QUE AL COMENZAR EL PRO ME MUESTRE LOS DE ALTA
+        conexionClientes.ConexionCliente.selectClientes(estado)
 
 
         """ZONA DE EVENTOS DEL BOTON"""
@@ -40,6 +49,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBuscarDriver.clicked.connect(drivers.Drivers.buscarDriverLupa)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modificarDriver)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borrarDriver)
+
+        """ZONA DE EVENTOS DEL BOTON DEL EXAMEN"""
+        var.ui.btnAltaCliente.clicked.connect(clientes.Clientes.altaCliente)
+        var.ui.btnBajaCliente.clicked.connect(clientes.Clientes.borrarCliente)
+        var.ui.btnModifCliente.clicked.connect(clientes.Clientes.modificaCliente)
 
 
         """ ZONA DE EVENTOS DEL MENU BAR"""
@@ -56,9 +70,20 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarMovil) #valida que el movil tiene 9 digitos
         var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarSalario)
 
+        """ZONA DE EVENTOS DE LA CAJAS DE TEXTO del EXAMEN"""
+        var.ui.txtTelefono.editingFinished.connect(clientes.Clientes.validarTelefono)
+        var.ui.txtDni2.editingFinished.connect(lambda: clientes.Clientes.validarDni(var.ui.txtDni2.text()))
+
+
+
+
         var.ui.txtNombre.editingFinished.connect(eventos.Eventos.formatCajaTexto)
         var.ui.txtApellido.editingFinished.connect(eventos.Eventos.formatCajaTexto)
         var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+
+        var.ui.txtDni2.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+        var.ui.txt_razonSocial.editingFinished.connect(eventos.Eventos.formatCajaTexto)
+        var.ui.txtDireccionCliente.editingFinished.connect(eventos.Eventos.formatCajaTexto)
 
         """EVENTOS DEl TOOL BAR"""
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.salir)
@@ -71,12 +96,15 @@ class Main(QtWidgets.QMainWindow):
         """EVENTOS DE TABLAS"""
 
         eventos.Eventos.resizeTabDrivers(self)
+        var.ui.tabClientes.clicked.connect(clientes.Clientes.cargaCliente)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargaDriver)
 
 
         """EVENTOS COMBOBOX"""
         var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.buttonGroup.buttonClicked.connect(drivers.Drivers.selEstado)
+
+        var.ui.cmbProvinciaCliente.currentIndexChanged.connect(conexionClientes.ConexionCliente.selMuni)
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)

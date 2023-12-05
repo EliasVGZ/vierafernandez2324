@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1156</width>
-    <height>1028</height>
+    <width>1251</width>
+    <height>878</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1121,7 +1121,7 @@ background-color:rgb(100,100,100);
       </widget>
       <widget class="QWidget" name="panelCoches">
        <attribute name="title">
-        <string>COCHES</string>
+        <string>CLIENTES</string>
        </attribute>
        <widget class="QFrame" name="frame_2">
         <property name="geometry">
@@ -1129,7 +1129,7 @@ background-color:rgb(100,100,100);
           <x>0</x>
           <y>0</y>
           <width>1021</width>
-          <height>221</height>
+          <height>211</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -1147,24 +1147,24 @@ background-color:rgb(100,100,100);
         <property name="lineWidth">
          <number>3</number>
         </property>
-        <widget class="QLabel" name="lbl_matricula">
+        <widget class="QLabel" name="lbl_codig">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>10</y>
+           <x>230</x>
+           <y>20</y>
            <width>55</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Matricula:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DNI:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="txtMatricula">
+        <widget class="QLineEdit" name="txtDni2">
          <property name="geometry">
           <rect>
-           <x>70</x>
-           <y>10</y>
+           <x>300</x>
+           <y>20</y>
            <width>121</width>
            <height>22</height>
           </rect>
@@ -1185,44 +1185,439 @@ background-color:rgb(100,100,100);
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnBuscarCoche">
+        <widget class="QLabel" name="lbl_codigo2">
          <property name="geometry">
           <rect>
-           <x>200</x>
+           <x>30</x>
+           <y>20</y>
+           <width>55</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Código&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblCodCliente">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
            <y>10</y>
-           <width>30</width>
+           <width>100</width>
            <height>30</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>30</width>
-           <height>30</height>
+           <width>100</width>
+           <height>20</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>30</width>
-           <height>30</height>
+           <width>100</width>
+           <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(253, 255, 210);</string>
          </property>
          <property name="text">
           <string/>
          </property>
-         <property name="icon">
-          <iconset>
-           <normalon>../IMG/lupa.png</normalon>
-          </iconset>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
-         <property name="iconSize">
+        </widget>
+        <widget class="QLineEdit" name="txt_razonSocial">
+         <property name="geometry">
+          <rect>
+           <x>590</x>
+           <y>20</y>
+           <width>113</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_razonSocial">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>20</y>
+           <width>81</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
           <size>
-           <width>24</width>
+           <width>40</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Razón Social: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblDireccion_2">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>60</y>
+           <width>60</width>
            <height>24</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direccion: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="txtDireccionCliente">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>60</y>
+           <width>350</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>350</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>315</width>
+           <height>16777215</height>
           </size>
          </property>
         </widget>
+        <widget class="QLabel" name="lblProvincia_2">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>60</y>
+           <width>58</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Provincia: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbProvinciaCliente">
+         <property name="geometry">
+          <rect>
+           <x>570</x>
+           <y>60</y>
+           <width>140</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>140</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblLocalidad_2">
+         <property name="geometry">
+          <rect>
+           <x>720</x>
+           <y>60</y>
+           <width>59</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Municipio:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbLocalidadCliente">
+         <property name="geometry">
+          <rect>
+           <x>790</x>
+           <y>60</y>
+           <width>170</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>170</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>170</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblMovil_2">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>110</y>
+           <width>55</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>55</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>55</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Telefono: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="txtTelefono">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>110</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnAltaCliente">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>150</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Alta</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnModifCliente">
+         <property name="geometry">
+          <rect>
+           <x>420</x>
+           <y>150</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Modificar</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBajaCliente">
+         <property name="geometry">
+          <rect>
+           <x>550</x>
+           <y>150</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Baja</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblValidarDni_2">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>20</y>
+           <width>20</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>20</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial Black</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblEstado_2">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>100</y>
+           <width>58</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Histórico:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="rbtTodosCliente">
+         <property name="geometry">
+          <rect>
+           <x>570</x>
+           <y>100</y>
+           <width>70</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Todos</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupCliente</string>
+         </attribute>
+        </widget>
+        <widget class="QRadioButton" name="rbtAltaCliente">
+         <property name="geometry">
+          <rect>
+           <x>640</x>
+           <y>100</y>
+           <width>67</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Alta</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupCliente</string>
+         </attribute>
+        </widget>
+        <widget class="QRadioButton" name="rbtBajaCliente">
+         <property name="geometry">
+          <rect>
+           <x>710</x>
+           <y>100</y>
+           <width>67</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Baja</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupCliente</string>
+         </attribute>
+        </widget>
        </widget>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="tabClientes">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1240,6 +1635,38 @@ background-color:rgb(100,100,100);
         <property name="autoFillBackground">
          <bool>true</bool>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QHeaderView::section:horizontal
+{
+border-top: 1px solid #ffffff;
+color:'white';
+font: 11pt &quot;Arial&quot;;
+background-color:rgb(100,100,100);
+}</string>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>CODIGO</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RAZON SOCIAL</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>TELEFONO</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>PROVINCIA</string>
+         </property>
+        </column>
        </widget>
       </widget>
      </widget>
@@ -1272,8 +1699,8 @@ background-color:rgb(100,100,100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1156</width>
-     <height>26</height>
+     <width>1251</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -1437,5 +1864,6 @@ background-color:rgb(100,100,100);
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroupCliente"/>
  </buttongroups>
 </ui>

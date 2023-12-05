@@ -28,15 +28,14 @@ class Conexion():
 
             query = QtSql.QSqlQuery()
             query.prepare('select provincia from provincias')
-            # query.prepare('select municipio from municipios')
             var.ui.cmbProvincia.addItem(' ')
-            # var.ui.cmbLocalidad.addItem('')
+
 
             if query.exec():
                 var.ui.cmbProvincia.addItem(' ')
                 while query.next():  # LLENAR LAS PROVINCIAS MIENTRAS HAYA
                     var.ui.cmbProvincia.addItem(query.value(0))
-                    # var.ui.cmbLocalidad.addItem(query.value(0))
+
 
 
 
