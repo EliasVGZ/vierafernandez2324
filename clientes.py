@@ -155,22 +155,15 @@ class Clientes():
             index = 0
             for registro in registros:
                 var.ui.tabClientes.setRowCount(index + 1)  # crea una fila
-                var.ui.tabClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(
-                    str(registro[0])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(
-                    str(registro[1])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(
-                    str(registro[2])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(
-                    str(registro[3])))
-                var.ui.tabClientes.setItem(index, 6, QtWidgets.QTableWidgetItem(
-                    str(registro[6])))
+                var.ui.tabClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
 
                 # Alineamos los items seleccionados
                 var.ui.tabClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tabClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tabClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
                 index += 1
 
 

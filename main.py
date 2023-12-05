@@ -104,6 +104,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.buttonGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
+        var.ui.buttonGroupCliente.buttonClicked.connect(clientes.Clientes.selEstadoCliente)
+
         var.ui.cmbProvinciaCliente.currentIndexChanged.connect(conexionClientes.ConexionCliente.selMuni)
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""

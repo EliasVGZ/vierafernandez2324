@@ -177,10 +177,9 @@ class ConexionCliente():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
-                if registros:
-                    clientes.Clientes.cargarTablaClientes(registros)
-                else:
-                    var.ui.tabClientes.setRowCount(0)
+
+                clientes.Clientes.cargarTablaClientes(registros)
+
 
             elif estado == 1:
                 query = QtSql.QSqlQuery()
@@ -190,10 +189,9 @@ class ConexionCliente():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
 
-                if registros:
-                    clientes.Clientes.cargarTablaClientes(registros)
-                else:
-                    var.ui.tabClientes.setRowCount(0)
+
+                clientes.Clientes.cargarTablaClientes(registros)
+
 
 
             elif estado == 2:
