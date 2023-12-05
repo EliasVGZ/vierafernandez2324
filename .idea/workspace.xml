@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fb9fde0d-74d6-4319-915d-e68c0743e3ae" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbdd.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/bbdd.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conexion.py" beforeDir="false" afterPath="$PROJECT_DIR$/conexion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers.py" beforeDir="false" afterPath="$PROJECT_DIR$/drivers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var.py" beforeDir="false" afterPath="$PROJECT_DIR$/var.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +39,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/pycharm_emerito/perezgonzalez2324&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Elias-D/pycharm_emerito/perezgonzalez2324&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>

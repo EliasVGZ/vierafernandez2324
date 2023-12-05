@@ -391,3 +391,26 @@ class Drivers():
 
         except Exception as error:
             print("Error en selEstado:", error)
+
+
+    """" EXAMEN """
+
+    def validarMatricula(self=None):
+        try:
+            matricula = var.ui.txtMatricula.text()
+            patron_matricula = r'^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$'
+            if not re.match(patron_matricula, matricula):
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText('Escriba una matrícula de coche correcta (formato: XXXXYYY)')
+                msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                msg.exec()
+                var.ui.txtMatricula.setText("")
+                var.ui.txtMatricula.clear()
+                var.ui.txtMatricula.setFocus()
+
+        except Exception as error:
+            print('Error al validar matrícula', error)
