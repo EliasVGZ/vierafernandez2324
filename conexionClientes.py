@@ -98,7 +98,7 @@ class ConexionCliente():
             if query1.exec():
                 while query1.next():
                     valor = query1.value(0)
-                    print(valor)
+
             if valor == '':
                 fecha = datetime.today()
                 fecha = fecha.strftime("%d/%m/%Y")
@@ -138,7 +138,7 @@ class ConexionCliente():
                 ConexionCliente.selectClientes(estado)
             else:
                 query1 = QtSql.QSqlQuery()
-                query1.prepare("select codigo, razonSocial, telefono, provinciacliente from clientes")
+                query1.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes")
                 if query1.exec():
                     while query1.next():
                         row = [query1.value(i) for i in range(query1.record().count())]  # funcion lambda
@@ -157,7 +157,7 @@ class ConexionCliente():
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM clientes WHERE codigo = :codigo")
+            query.prepare("SELECT * FROM clientes WHERE codigocliente = :codigo")
             query.bindValue(":codigo", int(codigo))
             if query.exec():
                 while query.next():
@@ -167,47 +167,39 @@ class ConexionCliente():
         except Exception as error:
             print("Error en fichero conexion datos de 1 cliente: ", error)
 
-    def selectClientes(estado):
+    def codigoCliente(dni):
         try:
-            registros = []
-            if estado == 0:
-                query = QtSql.QSqlQuery()
-                query.prepare("select codigo, razonSocial, telefono, provinciacliente from clientes")
-                if query.exec():
-                    while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT codigocliente FROM clientes WHERE dnicliente = :dni")
+            query.bindValue(":dni", str(dni))
 
-                clientes.Clientes.cargarTablaClientes(registros)
+            if query.exec():
+                codigocliente = None
+                while query.next():
+                    codigocliente = query.value(0)
+                    clientes.Clientes.buscarClienteTabla(codigocliente)
 
-
-            elif estado == 1:
-                query = QtSql.QSqlQuery()
-                query.prepare("select codigo, razonSocial, telefono, provinciacliente from clientes where bajacliente is null")
-                if query.exec():
-                    while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)
-
-
-                clientes.Clientes.cargarTablaClientes(registros)
-
-
-
-            elif estado == 2:
-                query = QtSql.QSqlQuery()
-                query.prepare("select codigo, razonSocial, telefono, provinciacliente from clientes where bajacliente is not null")
-                if query.exec():
-                    while query.next():
-                        row = [query.value(i) for i in range(query.record().count())]
-                        registros.append(row)
-
-                clientes.Clientes.cargarTablaClientes(registros)
-
+                if codigocliente is not None:
+                    registro = ConexionCliente.oneCliente(codigocliente)
+                    return registro
+                else:
+                    # Si no se encuentra el cliente, mostrar un aviso
+                    var.ui.lblValidarDni.setStyleSheet('color:red;')
+                    var.ui.lblValidarDni.setText('X')
+                    var.ui.txtDni.clear()  # Limpia el campo de texto
+                    var.ui.txtDni.setFocus()  # Mantiene el foco en el campo de texto
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setWindowIcon(QtGui.QIcon('./IMG/aviso.jpg'))  # Ruta del archivo del icono
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mensaje = ('          DNI no existe          ')
+                    mbox.setText(mensaje)
+                    mbox.exec()
+                    return None
 
         except Exception as error:
-            print("Error al seleccionar los clientes", error)
-
+            print("Error en búsqueda de código de un cliente: ", error)
+            return None
     def modifCliente(modificarNewCliente):
         try:
             registro = ConexionCliente.oneCliente(int(modificarNewCliente[0]))
@@ -240,3 +232,58 @@ class ConexionCliente():
 
         except Exception as error:
             print("Error al modificar cliente en conexion", error)
+
+    def selectClientes(estado):
+        try:
+            registros = []
+            if estado == 0:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+
+                clientes.Clientes.cargarTablaClientes(registros)
+
+
+            elif estado == 1:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+
+                clientes.Clientes.cargarTablaClientes(registros)
+
+            elif estado == 2:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is not null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]
+                        registros.append(row)
+
+                clientes.Clientes.cargarTablaClientes(registros)
+
+        except Exception as error:
+            print("Error al seleccionar los clientes", error)
+
+    def selectClientesTodos(self):  # METODO PARA LLAMAR A TODOS
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select * from clientes order by codigocliente")
+
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]
+                    registros.append(row)
+            return registros
+
+        except Exception as error:
+            print("error devolver todos los drivers", error)
+
+
+

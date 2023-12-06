@@ -231,7 +231,7 @@ class Drivers():
             print(fila)
 
         except Exception as error:
-            print("Error al cargar los datos de un cliente ", error)
+            print("Error al cargar los datos de un driver ", error)
             
 
 

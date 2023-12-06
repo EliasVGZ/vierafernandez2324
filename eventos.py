@@ -5,7 +5,7 @@ from datetime import datetime
 import xlrd
 from PyQt6 import QtWidgets, QtCore, QtSql
 
-import drivers
+import drivers, clientes
 import var, sys, locale, zipfile, shutil, conexion, xlwt
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
@@ -94,6 +94,18 @@ class Eventos():
         except Exception as error:
             print("error al dimensionar la tabla", error)
 
+    def resizeTabClientes(self):
+        try:
+            header = var.ui.tabClientes.horizontalHeader()
+            for i in range(4):
+                if i == 0 or i == 3 :
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                elif i == 1 or i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+
+        except Exception as error:
+            print("error al dimensionar la tabla", error)
+
     def formatCajaTexto(self=None):
         try:
 
@@ -101,11 +113,10 @@ class Eventos():
             var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
             var.ui.txtSalario.setText(str(locale.currency(float(
                 var.ui.txtSalario.text()))))  # Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual
+
             var.ui.txtDni2.setText(var.ui.txtDni2.text().title())
             var.ui.txt_razonSocial.setText(var.ui.txt_razonSocial.text().title())
             var.ui.txtDireccionCliente.setText(var.ui.txtDireccionCliente.text().title())
-
-
 
         except Exception as error:
             print("error poner letra capital en caja de texto", error)

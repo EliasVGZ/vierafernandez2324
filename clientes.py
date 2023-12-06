@@ -14,7 +14,7 @@ class Clientes():
     def limpiarPanelCliente(self):
         try:
             listawidgets = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente,
-                            var.ui.txtTelefono]
+                            var.ui.txtTelefono, var.ui.cmbProvinciaCliente, var.ui.cmbLocalidadCliente]
             for i in listawidgets:
                 if hasattr(i, 'setText'):
                     i.setText(None)
@@ -23,7 +23,6 @@ class Clientes():
 
         except Exception as error:
             print("error limpiando panel", error)
-
 
     def cargarFecha(qDate):
         try:
@@ -37,9 +36,8 @@ class Clientes():
     def validarTelefono(self=None):
         try:
             telefono = var.ui.txtTelefono.text()
-            var.ui.txtTelefono.setText(telefono)
-            patron = r'^\d{1,20}$'
-            if not re.match(patron, telefono):
+
+            if not telefono.isdigit():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
@@ -48,12 +46,13 @@ class Clientes():
                 msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 msg.exec()
-                var.ui.txtMovil.setText("")
-                var.ui.txtMovil.clear()
-                var.ui.txtMovil.setFocus()
+
+                # Limpiar y enfocar el campo de teléfono
+                var.ui.txtTelefono.clear()
+                var.ui.txtTelefono.setFocus()
 
         except Exception as error:
-            print('error poner movil', error)
+            print('error al validar teléfono', error)
 
     def validarDni(dni):
         try:
@@ -143,7 +142,6 @@ class Clientes():
             muni = var.ui.cmbLocalidad.currentText()
             modificarNewCliente.insert(4, muni)
 
-
             conexionClientes.ConexionCliente.modifCliente(modificarNewCliente)
 
         except Exception as error:
@@ -155,13 +153,16 @@ class Clientes():
             index = 0
             for registro in registros:
                 var.ui.tabClientes.setRowCount(index + 1)  # crea una fila
-                var.ui.tabClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 0,
+                                           QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 1,
+                                           QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 2,
+                                           QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
                 var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
 
                 # Alineamos los items seleccionados
-                var.ui.tabClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
@@ -188,7 +189,8 @@ class Clientes():
 
     def cargarDatosCliente(registro):
         try:
-            datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente, var.ui.cmbProvinciaCliente,
+            datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente,
+                     var.ui.cmbProvinciaCliente,
                      var.ui.cmbLocalidadCliente, var.ui.txtTelefono]
             # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
             for j, dato in enumerate(datos):
@@ -196,8 +198,6 @@ class Clientes():
                     dato.setCurrentText(str(registro[j]))
                 else:
                     dato.setText(str(registro[j]))
-
-
             print(registro)
 
         except Exception as error:
@@ -210,6 +210,7 @@ class Clientes():
             if var.ui.rbtTodosCliente.isChecked():  ##FUNCION PARA VERIFICAR QUE SE CLICKEO ENCIMA
                 estado = 0
                 conexionClientes.ConexionCliente.selectClientes(estado)
+
             elif var.ui.rbtAltaCliente.isChecked():
 
                 estado = 1
@@ -224,3 +225,15 @@ class Clientes():
         except Exception as error:
             print("Error en selEstado:", error)
 
+    def buscarClienteTabla(codigo):
+        try:
+            tabla = var.ui.tabClientes
+            for fila in range(tabla.rowCount()):
+                item = tabla.item(fila, 0)
+                valorCelda = item.text()
+                if valorCelda == int(codigo):
+                    tabla.selectRow(fila)
+                    tabla.scrollToItem(item)
+                    print("Fila encontrada:", fila)
+        except Exception as error:
+            print('No se ha podido seleccionar al cliente en la tabla', error)

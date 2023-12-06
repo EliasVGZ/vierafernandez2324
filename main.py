@@ -91,6 +91,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actioncrearCopia.triggered.connect(eventos.Eventos.crearBackUp)#llamada al icono
         var.ui.actionrestaurarCopia.triggered.connect(eventos.Eventos.restaurarBackUp)#llamada al icono
 
+        var.ui.actionlimpiarPanel.triggered.connect(clientes.Clientes.limpiarPanelCliente)
 
 
         """EVENTOS DE TABLAS"""
@@ -99,13 +100,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabClientes.clicked.connect(clientes.Clientes.cargaCliente)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargaDriver)
 
+        """EVENTOS DE TABLAS EXAMEN"""
+        eventos.Eventos.resizeTabClientes(self)
+
 
         """EVENTOS COMBOBOX"""
         var.ui.cmbProvincia.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.buttonGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
         var.ui.buttonGroupCliente.buttonClicked.connect(clientes.Clientes.selEstadoCliente)
-
         var.ui.cmbProvinciaCliente.currentIndexChanged.connect(conexionClientes.ConexionCliente.selMuni)
 
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""

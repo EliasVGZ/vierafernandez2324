@@ -337,6 +337,7 @@ class Conexion():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
+
                 if registros:
                     drivers.Drivers.cargarTablaDriver(registros)
                 else:
