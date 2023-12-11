@@ -82,7 +82,10 @@ class Conexion():
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    'insert into drivers (dnidriver, altadriver, apeldriver, nombredriver, direcciondriver, provdriver, munidriver, movildriver, salario, carnet) VALUES (:dni, :alta, :apel, :nombre, :direccion, :provincia, :municipio, :movil, :salario, :carnet)')
+                    'insert into drivers (dnidriver, altadriver, apeldriver, nombredriver, '
+                    'direcciondriver, provdriver, munidriver, movildriver, salario, carnet) '
+                    'VALUES (:dni, :alta, :apel, :nombre, :direccion, :provincia, :municipio, '
+                    ':movil, :salario, :carnet)')
 
                 query.bindValue(':dni', dni)
                 query.bindValue(':alta', str(newDriver[1]))

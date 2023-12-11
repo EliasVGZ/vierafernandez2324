@@ -65,16 +65,18 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Datos_xls.triggered.connect(eventos.Eventos.exportarDatosXls)#Herramienta
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
 
+        var.ui.actionImportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.importardatosclientesxls)
+        #var.ui.actionExportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.exportarDatosClientesXls)
+
+
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDni(var.ui.txtDni.text()))  #cuando estás escribiendo y salgas, ejecuta ese evento
         var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarMovil) #valida que el movil tiene 9 digitos
-        var.ui.txtMovil.editingFinished.connect(drivers.Drivers.validarSalario)
+        var.ui.txtSalario.editingFinished.connect(drivers.Drivers.validarSalario)
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO del EXAMEN"""
         var.ui.txtTelefono.editingFinished.connect(clientes.Clientes.validarTelefono)
         var.ui.txtDni2.editingFinished.connect(lambda: clientes.Clientes.validarDni(var.ui.txtDni2.text()))
-
-
 
 
         var.ui.txtNombre.editingFinished.connect(eventos.Eventos.formatCajaTexto)
@@ -91,6 +93,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actioncrearCopia.triggered.connect(eventos.Eventos.crearBackUp)#llamada al icono
         var.ui.actionrestaurarCopia.triggered.connect(eventos.Eventos.restaurarBackUp)#llamada al icono
 
+
+        """EXAMEN! EVENTOS DEl TOOL BAR"""
         var.ui.actionlimpiarPanel.triggered.connect(clientes.Clientes.limpiarPanelCliente)
 
 
@@ -114,10 +118,7 @@ class Main(QtWidgets.QMainWindow):
         """DIFERENTES EVENTOS AL CARGAR EL PROGRAMA"""
         eventos.Eventos.cargarstatusbar(self)
 
-        """
-        rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
-        for i in rbtDriver:
-            i.toggled.connect(eventos.Eventos.selEstado)"""
+
 
 
     def closeEvent(self, event):

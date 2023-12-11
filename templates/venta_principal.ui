@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1251</width>
-    <height>878</height>
+    <width>1075</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -111,7 +111,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="panelDrivers">
        <property name="sizePolicy">
@@ -1644,8 +1644,11 @@ font: 11pt &quot;Arial&quot;;
 background-color:rgb(100,100,100);
 }</string>
         </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>false</bool>
+         <bool>true</bool>
         </attribute>
         <column>
          <property name="text">
@@ -1699,7 +1702,7 @@ background-color:rgb(100,100,100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1251</width>
+     <width>1075</width>
      <height>21</height>
     </rect>
    </property>
@@ -1724,6 +1727,8 @@ background-color:rgb(100,100,100);
     <addaction name="separator"/>
     <addaction name="actionExportar_Datos_xls"/>
     <addaction name="actionImportar_Datos_XLS"/>
+    <addaction name="actionExportar_Datos_Clientes_XLS"/>
+    <addaction name="actionImportar_Datos_Clientes_XLS"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuCrear_Copia_Seguridad"/>
@@ -1836,6 +1841,16 @@ background-color:rgb(100,100,100);
     <string>Importar Datos XLS</string>
    </property>
   </action>
+  <action name="actionImportar_Datos_Clientes_XLS">
+   <property name="text">
+    <string>Importar Datos Clientes XLS</string>
+   </property>
+  </action>
+  <action name="actionExportar_Datos_Clientes_XLS">
+   <property name="text">
+    <string>Exportar Datos Clientes XLS</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>txtDni</tabstop>
@@ -1863,7 +1878,7 @@ background-color:rgb(100,100,100);
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroupCliente"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

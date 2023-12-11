@@ -5,6 +5,7 @@ from datetime import datetime
 import xlrd
 from PyQt6 import QtWidgets, QtCore, QtSql
 
+import conexionClientes
 import drivers, clientes
 import var, sys, locale, zipfile, shutil, conexion, xlwt
 
@@ -98,7 +99,7 @@ class Eventos():
         try:
             header = var.ui.tabClientes.horizontalHeader()
             for i in range(4):
-                if i == 0 or i == 3 :
+                if i == 0 or i == 3:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
                 elif i == 1 or i == 2:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
@@ -109,7 +110,8 @@ class Eventos():
     def formatCajaTexto(self=None):
         try:
 
-            var.ui.txtApellido.setText(var.ui.txtApellido.text().title())  # Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)
+            var.ui.txtApellido.setText(
+                var.ui.txtApellido.text().title())  # Toma el texto del widget txtApellido, lo convierte a título (es decir, la primera letra de cada palabra en mayúscula)
             var.ui.txtNombre.setText(var.ui.txtNombre.text().title())
             var.ui.txtSalario.setText(str(locale.currency(float(
                 var.ui.txtSalario.text()))))  # Formatea el número como una cadena de texto en formato de moneda según la configuración regional actual
@@ -197,7 +199,41 @@ class Eventos():
                 registros = conexion.Conexion.selectDriversTodos(self)
 
                 for fila, registro in enumerate(registros, 1):
-                    for i, valor in enumerate(registro[:-1]):# el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
+                    for i, valor in enumerate(
+                            registro[:-1]):  # el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
+                        sheet1.write(fila, i, str(valor))
+                wb.save(directorio)
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setModal(True)  # para que la ventana sea modal, que nadie pueda acceder a la ventana de atras
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+            msg.setText('Exportacion datos correcta ')
+            msg.exec()
+
+    def exportarDatosClientesXls(self):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')  # formato año, mes, dia, hora, minuto, segundos
+            file = (str(fecha) + ' _Datos.xls')
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en Fichero XLS', file, '.xls')
+
+            if var.dlgabrir.accept and filename:
+                wb = xlwt.Workbook()
+                sheet1 = wb.add_sheet('Clientes')
+                sheet1.write(0, 0, 'Codigo')  # el 0,0 es fila y columna
+                sheet1.write(0, 1, 'DNI')
+                sheet1.write(0, 2, 'Razon Social')
+                sheet1.write(0, 3, 'Dirección')
+                sheet1.write(0, 4, 'Provincia')
+                sheet1.write(0, 5, 'Municipio')
+                sheet1.write(0, 6, 'Teléfono')
+
+                registros = conexionClientes.ConexionCliente.selectClientes(self)
+
+                for fila, registro in enumerate(registros, 1):
+                    for i, valor in enumerate(registro[
+                                              :-1]):  # el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
                         sheet1.write(fila, i, str(valor))
                 wb.save(directorio)
 
@@ -210,11 +246,12 @@ class Eventos():
 
         except Exception as error:
             msg = QtWidgets.QMessageBox()
-            msg.setModal(True)#para que la ventana sea modal, que nadie pueda acceder a la ventana de atras
+            msg.setModal(True)  # para que la ventana sea modal, que nadie pueda acceder a la ventana de atras
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error Exportar Datos en Hoja de Cálculos ' + str(error))
             msg.exec()
+
 
     def importardatosxls(self):
         try:
@@ -269,4 +306,64 @@ class Eventos():
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error', error)
+            msg.exec()
+
+    def importardatosclientesxls(self):
+        try:
+            estado = 0
+            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
+                                                       '', '*.xls;;All Files (*)')
+            if filename:
+                file = filename
+                documento = xlrd.open_workbook(file)
+                datos = documento.sheet_by_index(0)
+                filas = datos.nrows
+                columnas = datos.ncols
+                for i in range(filas):
+                    if i == 0:
+                        pass
+                    else:
+                        new = []
+
+                        for j in range(columnas):
+                            if j == 1:
+                                dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
+                                dato = dato.strftime('%d/%m/%Y')
+                                new.append(str(dato))
+                            else:
+                                new.append(str(datos.cell_value(i, j)))
+
+                        if clientes.Clientes.validarDni(str(new[0])):
+                            conexionClientes.ConexionCliente.guardarCliente(new)
+                            print(f"Driver {i}, con dni {str(new[0])} importado.")
+                            clientes.Clientes.limpiarPanelCliente(self)
+
+
+                        elif estado == 0:
+                            estado = 1
+                            msg = QtWidgets.QMessageBox()
+                            msg.setModal(True)
+                            msg.setWindowTitle('Aviso')
+                            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                            msg.setText('Hay DNI incorrectos')
+                            msg.exec()
+                #var.ui.lblValidarDni_2.setText('')
+
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Importación de Datos de Clientes Realizada')
+                var.ui.lblValidarDni_2.setText('')
+                msg.exec()
+
+            #conexionClientes.ConexionCliente.selectClientes(1)
+
+
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setModal(True)
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('-----Error-----')
             msg.exec()

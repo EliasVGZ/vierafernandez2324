@@ -8,6 +8,7 @@ import drivers
 import eventos
 import var
 
+
 class ConexionCliente():
 
     def conexion(self=None):
@@ -36,7 +37,6 @@ class ConexionCliente():
         except Exception as error:
             print("error al carga provincias", error)
 
-
     def selMuni(self=None):
         try:
             var.ui.cmbLocalidadCliente.clear()
@@ -60,32 +60,40 @@ class ConexionCliente():
         except Exception as error:
             print("error seleccion municipios ", error)
 
-    def guardarCliente(newCliente):
+    @staticmethod
+    def guardarCliente(cliente):
         try:
-            dni = str(newCliente[0])
-            query = QtSql.QSqlQuery()
-            query.prepare(
-                'insert into clientes (dnicliente, razonSocial, direccioncliente, telefono, provinciacliente, municipiocliente '
-                ') VALUES (:dni, :razonsocial, :direccioncliente, :telefono, :provcliente, :municliente)')
-
-            query.bindValue(':dni', dni)
-            query.bindValue(':razonsocial', str(newCliente[1]))
-            query.bindValue(':direccioncliente', str(newCliente[2]))
-            query.bindValue(':telefono', str(newCliente[3]))
-            query.bindValue(':provcliente', str(newCliente[4]))
-            query.bindValue(':municliente', str(newCliente[5]))
-
-
-            if query.exec():
-                return True
+            if (cliente[0].strip() == "" or cliente[1].strip == "" or cliente[2].strip == "" or
+                    cliente[3].strip == "" or cliente[4].strip == "" or cliente[5].strip == ""):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle("Aviso")
+                mbox.setWindowIcon(QtGui.QIcon("./img/warning.png"))
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mensaje = "Faltan DATOS. Debe llenar todos los campos."
+                mbox.setText(mensaje)
+                mbox.exec()
             else:
-                return False
+                query = QtSql.QSqlQuery()
+                query.prepare(
+                    'insert into clientes (dnicliente, razonSocial, direccioncliente, telefono, provinciacliente, municipiocliente) '
+                    'VALUES (:dni, :razonsocial, :direccioncliente, :telefono, :provcliente, :municliente)')
 
-            ConexionCliente.mostrarClientes(self=None)
+                query.bindValue(':dni', str(cliente[0]))
+                query.bindValue(':razonsocial', str(cliente[1]))
+                query.bindValue(':direccioncliente', str(cliente[2]))
+                query.bindValue(':telefono', str(cliente[3]))
+                query.bindValue(':provcliente', str(cliente[4]))
+                query.bindValue(':municliente', str(cliente[5]))
 
+                if query.exec():
+                    ConexionCliente.mostrarClientes(self=None)  # Mover esta línea fuera del bloque try
+                    return True
+                else:
+                    return False
 
         except Exception as error:
             print("Error guardando los clientes", error)
+            return False  # Agregar un retorno False en caso de excepción
 
     def borrarCliente(dni):
         global valor
@@ -200,6 +208,7 @@ class ConexionCliente():
         except Exception as error:
             print("Error en búsqueda de código de un cliente: ", error)
             return None
+
     def modifCliente(modificarNewCliente):
         try:
             registro = ConexionCliente.oneCliente(int(modificarNewCliente[0]))
@@ -249,7 +258,8 @@ class ConexionCliente():
 
             elif estado == 1:
                 query = QtSql.QSqlQuery()
-                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is null")
+                query.prepare(
+                    "select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
@@ -259,7 +269,8 @@ class ConexionCliente():
 
             elif estado == 2:
                 query = QtSql.QSqlQuery()
-                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is not null")
+                query.prepare(
+                    "select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is not null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
@@ -284,6 +295,3 @@ class ConexionCliente():
 
         except Exception as error:
             print("error devolver todos los drivers", error)
-
-
-
