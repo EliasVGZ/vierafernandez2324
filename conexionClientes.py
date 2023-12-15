@@ -75,8 +75,10 @@ class ConexionCliente():
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    'insert into clientes (dnicliente, razonSocial, direccioncliente, telefono, provinciacliente, municipiocliente) '
-                    'VALUES (:dni, :razonsocial, :direccioncliente, :telefono, :provcliente, :municliente)')
+                    'insert into clientes (dnicliente, razonSocial, direccioncliente, telefono'
+                    'provinciacliente, municipiocliente) '
+                    'VALUES (:dni, :razonsocial, :direccioncliente, :telefono, :provcliente,'
+                    ':municliente)')
 
                 query.bindValue(':dni', str(cliente[0]))
                 query.bindValue(':razonsocial', str(cliente[1]))
@@ -84,6 +86,7 @@ class ConexionCliente():
                 query.bindValue(':telefono', str(cliente[3]))
                 query.bindValue(':provcliente', str(cliente[4]))
                 query.bindValue(':municliente', str(cliente[5]))
+
 
                 if query.exec():
                     ConexionCliente.mostrarClientes(self=None)  # Mover esta línea fuera del bloque try

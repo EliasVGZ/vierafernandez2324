@@ -98,10 +98,11 @@ class Clientes():
 
             ##AÑADIR PROVINCIAS AL CONDUCTOR
             prov = var.ui.cmbProvinciaCliente.currentText()
-            newCliente.insert(3, prov)
+            newCliente.insert(4, prov)
 
             muni = var.ui.cmbLocalidadCliente.currentText()
-            newCliente.insert(4, muni)
+            newCliente.insert(5, muni)
+            print(newCliente)
 
             conexionClientes.ConexionCliente.guardarCliente(newCliente)
 

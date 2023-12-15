@@ -219,10 +219,7 @@ class Conexion():
                     var.calendar2.selectionChanged.connect(Conexion.showSelectedDate)
 
                     data = Conexion.showSelectedDate()
-                    print("Fecha seleccionada; ", data)
-                    print('hola')
                     data = data.toString("dd/MM/yyyy")
-                    print(data)
 
 
                     if registro[11] != '':
