@@ -324,20 +324,12 @@ class Eventos():
                         pass
                     else:
                         new = []
-
                         for j in range(columnas):
-                            if j == 1:
-                                dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
-                                dato = dato.strftime('%d/%m/%Y')
-                                new.append(str(dato))
-                            else:
-                                new.append(str(datos.cell_value(i, j)))
+                            new.append(str(datos.cell_value(i, j)))
 
                         if clientes.Clientes.validarDni(str(new[0])):
                             conexionClientes.ConexionCliente.guardarCliente(new)
-                            print(f"Driver {i}, con dni {str(new[0])} importado.")
                             clientes.Clientes.limpiarPanelCliente(self)
-
 
                         elif estado == 0:
                             estado = 1
@@ -347,17 +339,17 @@ class Eventos():
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                             msg.setText('Hay DNI incorrectos')
                             msg.exec()
-                #var.ui.lblValidarDni_2.setText('')
+                var.ui.lblValidarDni_2.setText('')
 
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Importación de Datos de Clientes Realizada')
+                msg.setText('Importación de Datos Realizada')
                 var.ui.lblValidarDni_2.setText('')
                 msg.exec()
 
-            #conexionClientes.ConexionCliente.selectClientes(1)
+            conexionClientes.ConexionCliente.selectClientes(1)
 
 
         except Exception as error:
@@ -365,5 +357,5 @@ class Eventos():
             msg.setModal(True)
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('-----Error-----')
+            msg.setText('Error')
             msg.exec()
