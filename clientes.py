@@ -145,7 +145,7 @@ class Clientes():
             conexionClientes.ConexionCliente.modifCliente(modificarNewCliente)
 
         except Exception as error:
-            print("Error al modificar el driverrrrrrrrrrrrrrrrrr", error)
+            print("Error al modificar el cliente", error)
 
     def cargarTablaClientes(registros):
         try:
@@ -189,7 +189,8 @@ class Clientes():
 
     def cargarDatosCliente(registro):
         try:
-            datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente,
+            datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial,
+                     var.ui.txtDireccionCliente,
                      var.ui.cmbProvinciaCliente,
                      var.ui.cmbLocalidadCliente, var.ui.txtTelefono]
             # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER

@@ -66,7 +66,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
 
         var.ui.actionImportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.importardatosclientesxls)
-        #var.ui.actionExportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.exportarDatosClientesXls)
+        var.ui.actionExportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.exportarDatosClientesXls)
 
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""

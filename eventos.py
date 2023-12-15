@@ -232,8 +232,7 @@ class Eventos():
                 registros = conexionClientes.ConexionCliente.selectClientes(self)
 
                 for fila, registro in enumerate(registros, 1):
-                    for i, valor in enumerate(registro[
-                                              :-1]):  # el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
+                    for i, valor in enumerate(registro[:-1]):  # el :-1 es para que no te muestre el ultimo dato, en este caso fecha baja
                         sheet1.write(fila, i, str(valor))
                 wb.save(directorio)
 
@@ -311,34 +310,42 @@ class Eventos():
     def importardatosclientesxls(self):
         try:
             estado = 0
-            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
-                                                       '', '*.xls;;All Files (*)')
+            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos', '', '*.xls;;All Files (*)')
             if filename:
                 file = filename
                 documento = xlrd.open_workbook(file)
                 datos = documento.sheet_by_index(0)
                 filas = datos.nrows
                 columnas = datos.ncols
+                dni_incorrectos = False  # Variable para verificar si hay DNIs incorrectos
+
                 for i in range(filas):
                     if i == 0:
                         pass
                     else:
                         new = []
                         for j in range(columnas):
-                            new.append(str(datos.cell_value(i, j)))
+                            cell_value = datos.cell_value(i, j)
+                            if isinstance(cell_value, float):
+                                new.append(str("{:.0f}".format(cell_value)))
+                            else:
+                                new.append(str(cell_value))
 
                         if clientes.Clientes.validarDni(str(new[0])):
                             conexionClientes.ConexionCliente.guardarCliente(new)
                             clientes.Clientes.limpiarPanelCliente(self)
+                        else:
+                            dni_incorrectos = True  # Hay DNI incorrectos
 
-                        elif estado == 0:
-                            estado = 1
-                            msg = QtWidgets.QMessageBox()
-                            msg.setModal(True)
-                            msg.setWindowTitle('Aviso')
-                            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                            msg.setText('Hay DNI incorrectos')
-                            msg.exec()
+                if dni_incorrectos:
+                    estado = 1
+                    msg = QtWidgets.QMessageBox()
+                    msg.setModal(True)
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setText('Hay DNI incorrectos')
+                    msg.exec()
+
                 var.ui.lblValidarDni_2.setText('')
 
                 msg = QtWidgets.QMessageBox()
@@ -351,11 +358,10 @@ class Eventos():
 
             conexionClientes.ConexionCliente.selectClientes(1)
 
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setModal(True)
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText('Error')
+            msg.setText(f'Error: {str(error)}')
             msg.exec()
