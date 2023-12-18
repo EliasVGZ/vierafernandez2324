@@ -1922,7 +1922,7 @@ background-color:rgb(100,100,100);
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroupCliente"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

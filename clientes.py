@@ -106,12 +106,6 @@ class Clientes():
 
             conexionClientes.ConexionCliente.guardarCliente(newCliente)
 
-            mbox = QtWidgets.QMessageBox()
-            mbox.setWindowTitle('Aviso')
-            mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-            mbox.setText('Cliente dado de alta')
-            mbox.exec()
-
         except Exception as error:
             print("error alta cliente", error)
 

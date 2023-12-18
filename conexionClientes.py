@@ -1,11 +1,8 @@
-from calendar import Calendar
+from datetime import datetime
+
+from PyQt6 import QtWidgets, QtSql, QtGui
 
 import clientes
-from windowaux import *
-from PyQt6 import QtWidgets, QtSql, QtGui, QtCore
-from datetime import date, datetime
-import drivers
-import eventos
 import var
 
 
@@ -63,8 +60,8 @@ class ConexionCliente():
     @staticmethod
     def guardarCliente(cliente):
         try:
-            if (cliente[0].strip() == "" or cliente[1].strip == "" or cliente[2].strip == "" or
-                    cliente[3].strip == "" or cliente[4].strip == "" or cliente[5].strip == ""):
+            if (cliente[0].strip() == "" or cliente[1].strip() == "" or cliente[2].strip() == "" or
+                    cliente[3].strip() == "" or cliente[4].strip() == "" or cliente[5].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle("Aviso")
                 mbox.setWindowIcon(QtGui.QIcon("./img/warning.png"))
@@ -75,8 +72,8 @@ class ConexionCliente():
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    'insert into clientes (dnicliente, razonSocial, direccioncliente, telefono'
-                    'provinciacliente, municipiocliente) '
+                    'INSERT INTO clientes (dnicliente, razonSocial, direccioncliente, telefono,'
+                    ' provinciacliente, municipiocliente) '
                     'VALUES (:dni, :razonsocial, :direccioncliente, :telefono, :provcliente,'
                     ':municliente)')
 
@@ -87,12 +84,22 @@ class ConexionCliente():
                 query.bindValue(':provcliente', str(cliente[4]))
                 query.bindValue(':municliente', str(cliente[5]))
 
-
-                if query.exec():
-                    ConexionCliente.mostrarClientes(self=None)  # Mover esta línea fuera del bloque try
+                if query.exec():  # Usar exec_() en lugar de exec
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setText("Cliente dado de alta.")
+                    mbox.exec()
                     return True
                 else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    mbox.setText("Asegúrese de que el cliente no existe.")
+                    mbox.exec()
                     return False
+                # Seleccionar datos de clientes de la base de datos
+                ConexionCliente.mostrarClientes()
 
         except Exception as error:
             print("Error guardando los clientes", error)
@@ -141,7 +148,7 @@ class ConexionCliente():
         except Exception as error:
             print("Error al dar de baja al Cliente", error)
 
-    def mostrarClientes(self):
+    def mostrarClientes(self): # TODO: NO FUNCIONA
         try:
             registros = []
             if var.ui.rbtAltaCliente.isChecked():
