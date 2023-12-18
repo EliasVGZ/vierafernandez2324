@@ -4,11 +4,12 @@ import PyQt6
 from PyQt6 import QtWidgets, QtCore
 from PyQt6.QtWidgets import QApplication
 
-import clientes
+import clientes, informes
 import conexion
 import conexionClientes
 import drivers
 import eventos
+import informes
 from venta_principal import *
 import sys, var
 from calendario import *
@@ -67,6 +68,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionImportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.importardatosclientesxls)
         var.ui.actionExportar_Datos_Clientes_XLS.triggered.connect(eventos.Eventos.exportarDatosClientesXls)
+        var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportclientes)
 
 
         """ZONA DE EVENTOS DE LA CAJAS DE TEXTO"""

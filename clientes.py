@@ -156,11 +156,11 @@ class Clientes():
                 var.ui.tabClientes.setRowCount(index + 1)  # crea una fila
                 var.ui.tabClientes.setItem(index, 0,
                                            QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 1,
-                                           QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
                 var.ui.tabClientes.setItem(index, 2,
+                                           QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 3,
                                            QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
+                var.ui.tabClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[3])))
 
                 # Alineamos los items seleccionados
                 var.ui.tabClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)

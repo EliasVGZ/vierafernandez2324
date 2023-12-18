@@ -40,7 +40,7 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>../../../.designer/IMG/travel_car_BMV_1741.png</normaloff>
-    <normalon>../IMG/travel_car_BMV_1741.png</normalon>../../../.designer/IMG/travel_car_BMV_1741.png</iconset>
+    <normalon>../IMG/travel_car_BMV_1741 - Copia.png</normalon>../../../.designer/IMG/travel_car_BMV_1741.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -1147,7 +1147,7 @@ background-color:rgb(100,100,100);
         <property name="lineWidth">
          <number>3</number>
         </property>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -1535,7 +1535,7 @@ background-color:rgb(100,100,100);
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>2</x>
@@ -1756,8 +1756,16 @@ background-color:rgb(100,100,100);
     <addaction name="actionExportar_Datos_Clientes_XLS"/>
     <addaction name="actionImportar_Datos_Clientes_XLS"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionListado_Clientes"/>
+    <addaction name="actionListado_Conductors"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuCrear_Copia_Seguridad"/>
+   <addaction name="menuInformes"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="barSalir">
@@ -1877,6 +1885,16 @@ background-color:rgb(100,100,100);
     <string>Exportar Datos Clientes XLS</string>
    </property>
   </action>
+  <action name="actionListado_Clientes">
+   <property name="text">
+    <string>Listado Clientes</string>
+   </property>
+  </action>
+  <action name="actionListado_Conductors">
+   <property name="text">
+    <string>Listado Conductores</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>txtDni</tabstop>
@@ -1904,7 +1922,7 @@ background-color:rgb(100,100,100);
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupCliente"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroupCliente"/>
  </buttongroups>
 </ui>

@@ -317,7 +317,6 @@ class Eventos():
                 datos = documento.sheet_by_index(0)
                 filas = datos.nrows
                 columnas = datos.ncols
-                dni_incorrectos = False  # Variable para verificar si hay DNIs incorrectos
 
                 for i in range(filas):
                     if i == 0:
@@ -334,17 +333,6 @@ class Eventos():
                         if clientes.Clientes.validarDni(str(new[0])):
                             conexionClientes.ConexionCliente.guardarCliente(new)
                             clientes.Clientes.limpiarPanelCliente(self)
-                        else:
-                            dni_incorrectos = True  # Hay DNI incorrectos
-
-                if dni_incorrectos:
-                    estado = 1
-                    msg = QtWidgets.QMessageBox()
-                    msg.setModal(True)
-                    msg.setWindowTitle('Aviso')
-                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                    msg.setText('Hay DNI incorrectos')
-                    msg.exec()
 
                 var.ui.lblValidarDni_2.setText('')
 
