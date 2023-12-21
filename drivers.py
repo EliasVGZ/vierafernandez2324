@@ -339,6 +339,7 @@ class Drivers():
 
             modificarNewDriver.append(' - '.join(licencias))
             conexion.Conexion.modifDriver(modificarNewDriver)
+
         except Exception as error:
             print("Error al modificar el driverrrrrrrrrrrrrrrrrr", error)
 

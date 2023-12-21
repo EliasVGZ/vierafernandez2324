@@ -99,7 +99,7 @@ class ConexionCliente():
                     mbox.exec()
                     return False
                 # Seleccionar datos de clientes de la base de datos
-                ConexionCliente.mostrarClientes()
+            ConexionCliente.mostrarClientes()
 
         except Exception as error:
             print("Error guardando los clientes", error)
@@ -148,10 +148,10 @@ class ConexionCliente():
         except Exception as error:
             print("Error al dar de baja al Cliente", error)
 
-    def mostrarClientes(self): # TODO: NO FUNCIONA
+    def mostrarClientes(self):
         try:
             registros = []
-            if var.ui.rbtAltaCliente.isChecked():
+            if var.ui.rbtAlta.isChecked():
                 estado = 1
                 ConexionCliente.selectClientes(estado)
             else:
@@ -161,12 +161,11 @@ class ConexionCliente():
                     while query1.next():
                         row = [query1.value(i) for i in range(query1.record().count())]  # funcion lambda
                         registros.append(row)
-
+            # SI ESTAN TODOS DE BAJA DEBE MOSTRAR LA TABLA DE ALTA VACIA
             if registros:
                 clientes.Clientes.cargarTablaClientes(registros)
             else:
                 var.ui.tabClientes.setRowCount(0)
-
 
         except Exception as error:
             print("error mostrar resultados", error)
@@ -255,6 +254,7 @@ class ConexionCliente():
     def selectClientes(estado):
         try:
             registros = []
+            #TODO NO FUNCIONA, SOLO ME MUESTRA UNO, ZONA DE TODOS
             if estado == 0:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes")
@@ -263,24 +263,28 @@ class ConexionCliente():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
 
-                clientes.Clientes.cargarTablaClientes(registros)
-
+                if registros:
+                    clientes.Clientes.cargarTablaClientes(registros)
+                else:
+                    var.ui.tabClientes.setRowCount(0)
 
             elif estado == 1:
+                #TODO ZONA ALTA
                 query = QtSql.QSqlQuery()
-                query.prepare(
-                    "select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is null")
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes where bajacliente is null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
                         registros.append(row)
 
-                clientes.Clientes.cargarTablaClientes(registros)
+                if registros:
+                    clientes.Clientes.cargarTablaClientes(registros)
+                else:
+                    var.ui.tabClientes.setRowCount(0)
 
-            elif estado == 2:
+            elif estado == 2:# TODO ZONA DE BAJA
                 query = QtSql.QSqlQuery()
-                query.prepare(
-                    "select codigocliente, razonSocial, telefono, provinciacliente from clientes where bajacliente is not null")
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes where bajacliente is not null")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]

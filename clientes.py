@@ -148,13 +148,11 @@ class Clientes():
             index = 0
             for registro in registros:
                 var.ui.tabClientes.setRowCount(index + 1)  # crea una fila
-                var.ui.tabClientes.setItem(index, 0,
-                                           QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 2,
-                                           QtWidgets.QTableWidgetItem(str(registro[1])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 3,
-                                           QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
-                var.ui.tabClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[3])))
+                var.ui.tabClientes.setItem(index, 0,QtWidgets.QTableWidgetItem(str(registro[0])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tabClientes.setItem(index, 2,QtWidgets.QTableWidgetItem(str(registro[2])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))  # añadimos el new  en la tabla
+                var.ui.tabClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[4])))
 
                 # Alineamos los items seleccionados
                 var.ui.tabClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -177,7 +175,7 @@ class Clientes():
             # LLAMAMOS AL METODO CARGARDATOS PARA NO COPIAR CODIGO
             Clientes.cargarDatosCliente(registro)
 
-            print(fila)
+
 
         except Exception as error:
             print("Error al cargar los datos de un cliente ", error)
@@ -185,15 +183,18 @@ class Clientes():
     def cargarDatosCliente(registro):
         try:
             datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial,
-                     var.ui.txtDireccionCliente,
-                     var.ui.cmbProvinciaCliente,
+                     var.ui.txtDireccionCliente, var.ui.cmbProvinciaCliente,
                      var.ui.cmbLocalidadCliente, var.ui.txtTelefono]
+
             # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
             for j, dato in enumerate(datos):
-                if j == 4 or j == 5:
+                if isinstance(dato, QtWidgets.QComboBox):
                     dato.setCurrentText(str(registro[j]))
+                elif j == 4:  # Índice 4 para el QLineEdit del teléfono
+                    dato.setText(str(registro[j]))
                 else:
                     dato.setText(str(registro[j]))
+
             print(registro)
 
         except Exception as error:
