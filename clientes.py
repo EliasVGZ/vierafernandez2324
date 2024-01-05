@@ -125,17 +125,17 @@ class Clientes():
 
     def modificaCliente(self):
         try:
-            cliente = [var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente, var.ui.txtTelefono]
+            cliente = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial, var.ui.txtDireccionCliente, var.ui.txtTelefono]
             modificarNewCliente = []
 
             for i in cliente:
                 modificarNewCliente.append(i.text().title())
 
             ##AÑADIR PROVINCIAS AL CONDUCTOR
-            prov = var.ui.cmbProvincia.currentText()
-            modificarNewCliente.insert(3, prov)
-            muni = var.ui.cmbLocalidad.currentText()
-            modificarNewCliente.insert(4, muni)
+            prov = var.ui.cmbProvinciaCliente.currentText()
+            modificarNewCliente.insert(4, prov)
+            muni = var.ui.cmbLocalidadCliente.currentText()
+            modificarNewCliente.insert(5, muni)
 
             conexionClientes.ConexionCliente.modifCliente(modificarNewCliente)
 
@@ -182,18 +182,13 @@ class Clientes():
 
     def cargarDatosCliente(registro):
         try:
-            datos = [var.ui.lblCodCliente, var.ui.txtDni2, var.ui.txt_razonSocial,
-                     var.ui.txtDireccionCliente, var.ui.cmbProvinciaCliente,
-                     var.ui.cmbLocalidadCliente, var.ui.txtTelefono]
-
-            # CARGAR LOS DATOS CUANDO CLICKEAMOS ENCIMA DE ALGUN DRIVER
-            for j, dato in enumerate(datos):
-                if isinstance(dato, QtWidgets.QComboBox):
-                    dato.setCurrentText(str(registro[j]))
-                elif j == 4:  # Índice 4 para el QLineEdit del teléfono
-                    dato.setText(str(registro[j]))
-                else:
-                    dato.setText(str(registro[j]))
+            var.ui.lblCodCliente.setText(str(registro[0]))
+            var.ui.txtDni2.setText(str(registro[1]))
+            var.ui.txt_razonSocial.setText(str(registro[2]))
+            var.ui.txtDireccionCliente.setText(str(registro[3]))
+            var.ui.cmbProvinciaCliente.setCurrentText(str(registro[5]))
+            var.ui.cmbLocalidadCliente.setCurrentText(str(registro[6]))
+            var.ui.txtTelefono.setText(str(registro[4]))
 
             print(registro)
 

@@ -313,7 +313,7 @@ class Drivers():
             print(registro)
 
         except Exception as error:
-            print("Error al cargar los datos de un cliente ", error)
+            print("Error al cargar los datos de un conductor ", error)
 
     def modificarDriver(self):
         try:

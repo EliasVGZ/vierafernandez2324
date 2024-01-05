@@ -257,7 +257,7 @@ class ConexionCliente():
             #TODO NO FUNCIONA, SOLO ME MUESTRA UNO, ZONA DE TODOS
             if estado == 0:
                 query = QtSql.QSqlQuery()
-                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente from clientes")
+                query.prepare("select codigocliente, razonSocial, telefono, provinciacliente, bajacliente from clientes")
                 if query.exec():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]
